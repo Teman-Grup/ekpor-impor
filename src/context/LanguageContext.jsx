@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import translations from '../translations/translations'
 
 const LanguageContext = createContext()
 
@@ -26,8 +27,11 @@ export const LanguageProvider = ({ children }) => {
     localStorage.setItem('language', lang)
   }
 
+  // Get current translations
+  const t = translations[language] || translations.id
+
   return (
-    <LanguageContext.Provider value={{ language, changeLanguage }}>
+    <LanguageContext.Provider value={{ language, changeLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   )

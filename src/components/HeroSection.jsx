@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
-import translations from '../translations/translations'
 
 function HeroSection({ data }) {
-  const { language } = useLanguage()
-  const t = translations[language]
+  const { t, language } = useLanguage()
 
   useEffect(() => {
     // Initialize Lucide icons

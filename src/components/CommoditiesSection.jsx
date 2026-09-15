@@ -1,12 +1,66 @@
 import { useLanguage } from '../context/LanguageContext'
 
 function CommoditiesSection({ data }) {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   
   if (!data) return null
 
-  const featured = data.filter(c => c.featured)
-  const others = data.filter(c => !c.featured)
+  // Function to translate commodity data
+  const translateCommodity = (commodity) => {
+    if (language === 'id') return commodity
+
+    // Map commodity names and descriptions to English
+    const translations = {
+      "Jernang (Dragon's Blood)": {
+        name: t.commodityJernang,
+        description: t.commodityJernangDesc,
+        grade: commodity.grade === "Super / Murni" ? t.gradeSuperMurni : commodity.grade,
+        forms: commodity.forms === "Buah, Tepung & Blok" ? t.formsBuahTepungBlok : commodity.forms
+      },
+      "Kayu Gaharu": {
+        name: t.commodityGaharu,
+        description: t.commodityGaharuDesc,
+        grade: commodity.grade === "Ekspor Terpilih" ? t.gradeEksporTerpilih : commodity.grade
+      },
+      "Kemenyan": {
+        name: t.commodityKemenyan,
+        description: t.commodityKemenyanDesc
+      },
+      "Damar Batu": {
+        name: t.commodityDamar,
+        description: t.commodityDamarDesc
+      },
+      "Lidi": {
+        name: t.commodityLidi,
+        description: t.commodityLidiDesc
+      },
+      "Buah Pinang": {
+        name: t.commodityPinang,
+        description: t.commodityPinangDesc
+      },
+      "Bigar Bambu & Hasil Alam Lainnya": {
+        name: t.commodityBigar,
+        description: t.commodityBigarDesc,
+        grade: commodity.grade === "Kustomisasi Spesifikasi Buyer" ? t.gradeKustomisasi : commodity.grade
+      }
+    }
+
+    const translated = translations[commodity.name]
+    if (translated) {
+      return {
+        ...commodity,
+        name: translated.name,
+        description: translated.description,
+        grade: translated.grade || commodity.grade,
+        forms: translated.forms || commodity.forms
+      }
+    }
+
+    return commodity
+  }
+
+  const featured = data.filter(c => c.featured).map(translateCommodity)
+  const others = data.filter(c => !c.featured).map(translateCommodity)
 
   return (
     <section className="py-16 md:py-24 bg-white border-b border-stone-200" id="komoditas">

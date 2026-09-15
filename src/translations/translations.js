@@ -1,4 +1,4 @@
-export const translations = {
+const translations = {
   id: {
     // Top Bar
     location: "Medan, ID (GMT+7)",
@@ -62,17 +62,51 @@ export const translations = {
     pillar4Title: "Export & International Trading",
     pillar4Desc: "Pengalaman perdagangan dan pengiriman komoditas ke pasar internasional (termasuk China dan India) mulai dari perijinan, packing, karantina resmi, hingga ekspor transportasi kepelabuhan.",
     
-    // Commodities
-    officialCatalog: "KATALOG PERDAGANGAN RESMI",
-    commoditiesTitle: "Komoditas Unggulan & Portofolio Alam",
-    qualityStandard: "Standar Mutu Ekspor Lab Terverifikasi",
-    mainCommodity: "KOMODITAS UTAMA",
-    otherCommodities: "KOMODITAS LAINNYA DALAM PORTOFOLIO",
+    // Commodities Data Translations
+    commodityJernang: "Jernang (Dragon's Blood)",
+    commodityJernangDesc: "Salah satu komoditas utama dalam perjalanan bisnis PT. Original Jernang Asia. Pengolahan mulai dari bahan baku hingga siap dipasarkan: penanganan buah jernang, pengolahan menjadi tepung jernang, hingga proses pembentukan menjadi blok dengan pengawasan laboratorium.",
+    commodityGaharu: "Kayu Gaharu",
+    commodityGaharuDesc: "Komoditas hasil alam bernilai tinggi yang menjadi bagian dari portofolio perdagangan dan pengiriman perusahaan.",
+    commodityKemenyan: "Kemenyan",
+    commodityKemenyanDesc: "Komoditas hasil alam yang telah menjadi bagian dari aktivitas perdagangan perusahaan, termasuk jejak pengiriman ke pasar China.",
+    commodityDamar: "Damar Batu",
+    commodityDamarDesc: "Komoditas hasil alam yang telah diperdagangkan dan dikirim secara berulang untuk pasar ekspor China.",
+    commodityLidi: "Lidi",
+    commodityLidiDesc: "Komoditas portofolio perdagangan dengan pengalaman dan rekam jejak pengiriman kontainer ekspor ke India.",
+    commodityPinang: "Buah Pinang",
+    commodityPinangDesc: "Hasil alam pilihan yang telah diperdagangkan dengan rekam jejak ekspor subtansial berbagai pelabuhan utama di India.",
+    commodityBigar: "Bigar Bambu & Hasil Alam Lainnya",
+    commodityBigarDesc: "Diperdagangkan dan disortir secara presisi sesuai spesifikasi teknis dan permintaan buyer internasional.",
+    gradeSuperMurni: "Super / Murni",
+    gradeEksporTerpilih: "Ekspor Terpilih",
+    gradeKustomisasi: "Kustomisasi Spesifikasi Buyer",
+    formsBuahTepungBlok: "Buah, Tepung & Blok",
     
     // Operational
     exportPipeline: "END-TO-END EXPORT PIPELINE",
     operationalTitle: "Proses Operasional 7 Tahap Terintegrasi",
     operationalSubtitle: "Alur kerja sistematis kami menjamin setiap batch komoditas dari hulu hingga tiba di pelabuhan internasional memenuhi standar kualitas dan legalitas.",
+    step1: "Sourcing",
+    step1Desc: "Pengadaan bahan baku melalui jaringan petani dan pemasok hasil alam terpercaya.",
+    step1Label: "HULU / PETANI",
+    step2: "Selection",
+    step2Desc: "Pemilahan dan penanganan bahan baku sebelum memasuki proses pengolahan pabrik.",
+    step2Label: "SORTIR MUTU",
+    step3: "Processing",
+    step3Desc: "Pengolahan bahan baku menggunakan 6 unit mesin produksi berstandar Medan.",
+    step3Label: "FABRIKASI",
+    step4: "Quality Control",
+    step4Desc: "Pengawalan kualitas produk melalui pemeriksaan dan uji laboratorium mandiri.",
+    step4Label: "LAB TESTING",
+    step5: "Packing",
+    step5Desc: "Produk dipersiapkan dan dikemas rapi sesuai kebutuhan standar pengiriman internasional.",
+    step5Label: "EXPORT PACKAGING",
+    step6: "Quarantine",
+    step6Desc: "Menjalani pemeriksaan karantina resmi negara sesuai regulasi perijinan.",
+    step6Label: "PHYTOSANITARY",
+    step7: "Export",
+    step7Desc: "Produk dikirim kepada buyer internasional tepat waktu via ocean freight/air cargo.",
+    step7Label: "FINAL DELIVERY",
     
     // Portfolio
     globalMarket: "GLOBAL MARKET PENETRATION",
@@ -187,6 +221,26 @@ export const translations = {
     qualityStandard: "Lab-Verified Export Quality Standards",
     mainCommodity: "MAIN COMMODITY",
     otherCommodities: "OTHER COMMODITIES IN PORTFOLIO",
+    
+    // Commodities Data Translations
+    commodityJernang: "Jernang (Dragon's Blood)",
+    commodityJernangDesc: "One of the main commodities in PT. Original Jernang Asia's business journey. Processing from raw materials to market-ready products: handling jernang fruit, processing into jernang powder, to block formation with laboratory supervision.",
+    commodityGaharu: "Agarwood",
+    commodityGaharuDesc: "High-value natural commodity that is part of the company's trading and shipping portfolio.",
+    commodityKemenyan: "Benzoin",
+    commodityKemenyanDesc: "Natural commodity that has become part of the company's trading activities, including shipping records to the Chinese market.",
+    commodityDamar: "Damar Stone",
+    commodityDamarDesc: "Natural commodity that has been repeatedly traded and shipped for the China export market.",
+    commodityLidi: "Palm Sticks",
+    commodityLidiDesc: "Trading portfolio commodity with experience and track record of container export shipments to India.",
+    commodityPinang: "Betel Nuts",
+    commodityPinangDesc: "Selected natural products that have been traded with substantial export records to various major ports in India.",
+    commodityBigar: "Bamboo Brooms & Other Natural Products",
+    commodityBigarDesc: "Traded and sorted with precision according to technical specifications and international buyer requirements.",
+    gradeSuperMurni: "Super / Pure",
+    gradeEksporTerpilih: "Selected Export",
+    gradeKustomisasi: "Buyer Specification Customization",
+    formsBuahTepungBlok: "Fruit, Powder & Blocks",
     hsCode: "HS CODE",
     botanicalResin: "BOTANICAL RESIN",
     grade: "Grade",
@@ -303,4 +357,5 @@ export const translations = {
   }
 }
 
+export { translations }
 export default translations

@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
-import translations from '../translations/translations'
 
 function TopBar({ data }) {
-  const { language, changeLanguage } = useLanguage()
-  const t = translations[language]
+  const { language, changeLanguage, t } = useLanguage()
 
   useEffect(() => {
     if (window.lucide) {
