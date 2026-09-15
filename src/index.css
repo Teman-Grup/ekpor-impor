@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.wood-texture-hero {
+  background: linear-gradient(135deg, rgba(138, 36, 16, 0.96) 0%, rgba(100, 24, 9, 0.98) 100%), #701c0a;
+}
