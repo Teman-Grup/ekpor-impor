@@ -105,9 +105,9 @@ function Navigation({ data }) {
           >
             <div className="w-8 h-8 sm:w-11 sm:h-11 flex-shrink-0 bg-stone-50 border border-stone-200 rounded-sm p-0.5 sm:p-1 shadow-sm flex items-center justify-center transition-transform group-hover:scale-105">
               <img 
-                alt="PT. Original Jernang Asia Emblem" 
+                alt="PT. Original Jernang Asia Logo" 
                 className="w-full h-full object-contain" 
-                src="https://lh3.googleusercontent.com/aida/AEtjO1X2rg3ru0z-WwE_z1dhWflRfkkKBXCbRUzd4ce4bx4G6xhUp8TeV2fvsW90EDaLo1mlSbSyVP8P89lQmNjvnjKBMC1KEilpv2lACFtjij9aTo-R73gbcNwJdj4YDMQLNOYTQIB004GdX8oBUxvT7GN9nrKAjvhvq30w9zQerKu1Pb7LcZ4oyj7w00F2S6SKOAdGXA_1TP8YloMUbJf_pElQZlRsXF10x-JdXs1Zfu0qRMQ8GL07wOPO1A"
+                src="/assets/logo.png"
               />
             </div>
             <div className="flex flex-col justify-center">

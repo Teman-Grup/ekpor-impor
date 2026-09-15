@@ -194,11 +194,9 @@ function AdminDashboard({ setAuth }) {
     <div className="flex flex-col h-full">
       {/* Brand */}
       <div className={`flex items-center gap-3 p-5 border-b border-white/5 ${collapsed && !onLinkClick ? 'justify-center' : ''}`}>
-        <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-gradient-to-br from-brand-crimson to-brand-sienna flex items-center justify-center shadow-lg">
-          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-          </svg>
-        </div>
+        <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shadow-lg overflow-hidden p-0.5">
+            <img src="/assets/logo.png" alt="Logo" className="w-full h-full object-contain" />
+          </div>
         {(!collapsed || onLinkClick) && (
           <div className="min-w-0">
             <p className="text-white text-sm font-bold leading-tight truncate">Admin Panel</p>

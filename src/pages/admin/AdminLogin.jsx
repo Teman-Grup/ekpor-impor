@@ -57,10 +57,12 @@ function AdminLogin({ setAuth }) {
       <div className="relative w-full max-w-md">
         {/* Logo Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-crimson to-brand-sienna shadow-2xl mb-5 shadow-brand-crimson/30">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
+          <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-white/10 backdrop-blur shadow-2xl mb-5 border border-white/10 p-2">
+            <img
+              src="/assets/logo.png"
+              alt="Logo PT. Original Jernang Asia"
+              className="w-full h-full object-contain drop-shadow-lg"
+            />
           </div>
           <h1 className="text-3xl font-serif font-bold text-white tracking-tight">Admin Panel</h1>
           <p className="text-stone-400 text-sm mt-2 font-medium tracking-wider uppercase">PT. Original Jernang Asia</p>
