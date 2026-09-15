@@ -3,13 +3,30 @@ import { useLanguage } from '../context/LanguageContext'
 function CommoditiesSection({ data }) {
   const { t, language } = useLanguage()
   
-  if (!data) return null
+  const rawList = Array.isArray(data) ? data : [
+    {
+      id: 1,
+      name: "Jernang (Dragon's Blood)",
+      description: "Komoditas utama dengan pengolahan lengkap dari buah hingga blok.",
+      image: "https://lh3.googleusercontent.com/aida/AEtjO1Wy8xOQxV2cl4kkPhaPUunsldrBOL4nBfQD1JsV851HV0FGfUq8sfga0bSWtJ1ic3caH4hP2c1PS1ce5UvjxvlJldIqAZNIKJq4r2sk9NrlOgWGCRPZ6rbSmpsw3pOHsXl_pBk56y-_FnFxu8OgFA5BmZ_MJnjuzwjzoEq7msZlnYRGKaZmFHOmS0XW9vcxhymhLpzxOr1OD9lGyBiOWvTOCnAWEcLDKsnkmXL1xmkskYtDoxEVGzVTIQ",
+      featured: true,
+      grade: 'Super / Murni',
+      forms: 'Buah, Tepung & Blok'
+    },
+    {
+      id: 2,
+      name: 'Kayu Gaharu',
+      description: 'Komoditas hasil alam bernilai tinggi untuk ekspor.',
+      image: 'https://lh3.googleusercontent.com/aida/AEtjO1Wy8xOQxV2cl4kkPhaPUunsldrBOL4nBfQD1JsV851HV0FGfUq8sfga0bSWtJ1ic3caH4hP2c1PS1ce5UvjxvlJldIqAZNIKJq4r2sk9NrlOgWGCRPZ6rbSmpsw3pOHsXl_pBk56y-_FnFxu8OgFA5BmZ_MJnjuzwjzoEq7msZlnYRGKaZmFHOmS0XW9vcxhymhLpzxOr1OD9lGyBiOWvTOCnAWEcLDKsnkmXL1xmkskYtDoxEVGzVTIQ',
+      featured: false,
+      grade: 'Ekspor Terpilih'
+    }
+  ]
 
   // Function to translate commodity data
   const translateCommodity = (commodity) => {
     if (language === 'id') return commodity
 
-    // Map commodity names and descriptions to English
     const translations = {
       "Jernang (Dragon's Blood)": {
         name: t.commodityJernang,
@@ -59,8 +76,8 @@ function CommoditiesSection({ data }) {
     return commodity
   }
 
-  const featured = data.filter(c => c.featured).map(translateCommodity)
-  const others = data.filter(c => !c.featured).map(translateCommodity)
+  const featured = rawList.filter(c => c.featured).map(translateCommodity)
+  const others = rawList.filter(c => !c.featured).map(translateCommodity)
 
   return (
     <section className="py-16 md:py-24 bg-white border-b border-stone-200" id="komoditas">

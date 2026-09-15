@@ -28,8 +28,17 @@ function HomePage() {
   const fetchContent = async () => {
     try {
       const response = await axios.get('/api/content')
-      if (response.data) {
-        setContent(response.data)
+      // Validate that response.data is a valid JSON object with data keys, not an HTML string
+      if (
+        response.data &&
+        typeof response.data === 'object' &&
+        !Array.isArray(response.data) &&
+        (response.data.hero || response.data.navigation || response.data.topBar)
+      ) {
+        setContent((prev) => ({
+          ...prev,
+          ...response.data
+        }))
       }
     } catch (error) {
       // Keep default content silently if backend is offline or connecting

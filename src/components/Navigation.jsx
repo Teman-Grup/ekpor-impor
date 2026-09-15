@@ -70,8 +70,6 @@ function Navigation({ data }) {
     }
   }, [isMobileMenuOpen])
 
-  if (!data) return null
-
   const isActive = (section) => activeSection === section
 
   const navLinks = [

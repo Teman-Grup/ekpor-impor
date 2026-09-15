@@ -10,8 +10,6 @@ function AboutSection({ data }) {
     }
   }, [language])
 
-  if (!data) return null
-
   // Use translations for paragraphs
   const paragraphs = [
     t.aboutPara1,

@@ -10,7 +10,8 @@ function TopBar({ data }) {
     }
   }, [language])
 
-  if (!data) return null
+  const phone = data?.phone || '+62 812 600 100 28'
+  const email = data?.email || 'ptoriginaljernangasia@gmail.com'
 
   return (
     <header className="w-full bg-[#181816] text-[#c9c5be] text-xs border-b border-stone-800">
@@ -21,13 +22,13 @@ function TopBar({ data }) {
             <i className="w-3.5 h-3.5 text-brand-sienna" data-lucide="map-pin"></i>
             {t.location}
           </span>
-          <a className="inline-flex items-center gap-1.5 hover:text-white transition-colors" href={`tel:${data.phone?.replace(/\s/g, '')}`}>
+          <a className="inline-flex items-center gap-1.5 hover:text-white transition-colors" href={`tel:${phone.replace(/\s/g, '')}`}>
             <i className="w-3.5 h-3.5 text-brand-sienna" data-lucide="phone"></i>
-            <span>{data.phone}</span>
+            <span>{phone}</span>
           </a>
-          <a className="hidden md:inline-flex items-center gap-1.5 hover:text-white transition-colors" href={`mailto:${data.email}`}>
+          <a className="hidden md:inline-flex items-center gap-1.5 hover:text-white transition-colors" href={`mailto:${email}`}>
             <i className="w-3.5 h-3.5 text-brand-sienna" data-lucide="mail"></i>
-            <span>{data.email}</span>
+            <span>{email}</span>
           </a>
         </div>
         

@@ -11,7 +11,7 @@ function HeroSection({ data }) {
     }
   }, [language])
 
-  if (!data) return null
+  const heroImage = data?.image || 'https://lh3.googleusercontent.com/aida/AEtjO1Wy8xOQxV2cl4kkPhaPUunsldrBOL4nBfQD1JsV851HV0FGfUq8sfga0bSWtJ1ic3caH4hP2c1PS1ce5UvjxvlJldIqAZNIKJq4r2sk9NrlOgWGCRPZ6rbSmpsw3pOHsXl_pBk56y-_FnFxu8OgFA5BmZ_MJnjuzwjzoEq7msZlnYRGKaZmFHOmS0XW9vcxhymhLpzxOr1OD9lGyBiOWvTOCnAWEcLDKsnkmXL1xmkskYtDoxEVGzVTIQ'
 
   return (
     <section className="wood-texture-hero text-white py-12 md:py-20 relative overflow-hidden border-b-4 border-amber-600">
@@ -83,7 +83,7 @@ function HeroSection({ data }) {
                 <img 
                   alt="Dragon's Blood Resin QC Medan Laboratory" 
                   className="w-full h-full object-cover object-center" 
-                  src={data.image}
+                  src={heroImage}
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-2.5 text-white">
                   <span className="text-[11px] font-medium tracking-wide flex items-center gap-1.5">

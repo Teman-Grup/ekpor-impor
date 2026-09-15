@@ -10,14 +10,19 @@ function PillarsSection({ data }) {
     }
   }, [language])
 
-  if (!data) return null
+  const rawPillars = Array.isArray(data) && data.length >= 4 ? data : [
+    { id: 1, number: '01', icon: 'package-search', badge: 'Supply Network' },
+    { id: 2, number: '02', icon: 'cog', badge: 'Modern Processing' },
+    { id: 3, number: '03', icon: 'flask-conical', badge: 'QC & Laboratory' },
+    { id: 4, number: '04', icon: 'globe', badge: 'Export Network' }
+  ]
 
   // Translate pillar content
   const translatedPillars = [
-    { ...data[0], title: t.pillar1Title, description: t.pillar1Desc },
-    { ...data[1], title: t.pillar2Title, description: t.pillar2Desc },
-    { ...data[2], title: t.pillar3Title, description: t.pillar3Desc },
-    { ...data[3], title: t.pillar4Title, description: t.pillar4Desc }
+    { ...rawPillars[0], title: t.pillar1Title, description: t.pillar1Desc },
+    { ...rawPillars[1], title: t.pillar2Title, description: t.pillar2Desc },
+    { ...rawPillars[2], title: t.pillar3Title, description: t.pillar3Desc },
+    { ...rawPillars[3], title: t.pillar4Title, description: t.pillar4Desc }
   ]
 
   return (
