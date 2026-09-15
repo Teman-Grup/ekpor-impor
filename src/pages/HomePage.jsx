@@ -14,40 +14,32 @@ import LegalitasSection from '../components/LegalitasSection'
 import Footer from '../components/Footer'
 
 function HomePage() {
-  const [content, setContent] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [content, setContent] = useState(getDefaultContent())
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    // Scroll to top on fresh load if no anchor hash is in URL
+    if (!window.location.hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    }
     fetchContent()
   }, [])
 
   const fetchContent = async () => {
     try {
       const response = await axios.get('/api/content')
-      setContent(response.data)
+      if (response.data) {
+        setContent(response.data)
+      }
     } catch (error) {
-      console.error('Error fetching content:', error)
-      setContent(getDefaultContent())
-    } finally {
-      setLoading(false)
+      // Keep default content silently if backend is offline or connecting
     }
-  }
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-brand-cream">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand-crimson mx-auto"></div>
-          <p className="mt-4 text-stone-600">Loading...</p>
-        </div>
-      </div>
-    )
   }
 
   return (
     <div className="min-h-screen bg-brand-cream">
       {/* Sticky Header: TopBar + Navigation */}
-      <header className="sticky top-0 z-50 w-full">
+      <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
         <TopBar data={content?.topBar} />
         <Navigation data={content?.navigation} />
       </header>
