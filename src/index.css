@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -15,3 +20,4 @@ h1, h2, h3, h4, h5, h6 {
 .wood-texture-hero {
   background: linear-gradient(135deg, rgba(138, 36, 16, 0.96) 0%, rgba(100, 24, 9, 0.98) 100%), #701c0a;
 }
+

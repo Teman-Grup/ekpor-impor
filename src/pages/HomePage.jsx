@@ -46,8 +46,11 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-brand-cream">
-      <TopBar data={content?.topBar} />
-      <Navigation data={content?.navigation} />
+      {/* Sticky Header: TopBar + Navigation */}
+      <header className="sticky top-0 z-50 w-full">
+        <TopBar data={content?.topBar} />
+        <Navigation data={content?.navigation} />
+      </header>
       <HeroSection data={content?.hero} />
       <AboutSection data={content?.about} />
       <PillarsSection data={content?.pillars} />

@@ -17,9 +17,6 @@ build/
 .env.production
 .env.development
 
-# Server data
-server/data.json
-
 # Logs
 logs
 *.log
