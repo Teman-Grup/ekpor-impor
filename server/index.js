@@ -228,10 +228,20 @@ app.post('/api/auth/login', (req, res) => {
   }
 })
 
+// Serve static files from React build (for production)
+app.use(express.static(path.join(__dirname, '../dist')))
+
+// Handle React routing - return all requests to React app
+// This should be the LAST route (after all API routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist', 'index.html'))
+})
+
 // Initialize and start server
 initializeData().then(() => {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`)
     console.log(`📡 API: http://localhost:${PORT}/api`)
+    console.log(`🌐 Frontend: http://localhost:${PORT}`)
   })
 })
