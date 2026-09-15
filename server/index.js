@@ -49,28 +49,32 @@ async function initializeData() {
           number: '01',
           icon: 'package-search',
           title: 'Perdagangan Komoditas Hasil Alam',
-          description: 'Kami menyediakan berbagai macam komoditas hasil alam Indonesia untuk kebutuhan perdagangan besar dan pasar ekspor.'
+          description: 'Kami menyediakan berbagai macam komoditas hasil alam Indonesia untuk kebutuhan perdagangan besar dan pasar ekspor (Jernang, Kayu Gaharu, Kemenyan, Damar Batu, Bigar Bambu, Lidi, Buah Pinang).',
+          badge: 'Broad Supply Network'
         },
         {
           id: 2,
           number: '02',
           icon: 'cog',
           title: 'Pengolahan Modern Mandiri',
-          description: 'Melakukan proses pengolahan bahan baku dengan dukungan 6 mesin produksi modern.'
+          description: 'PT. Original Jernang Asia tidak hanya berperan sebagai perusahaan perdagangan, tetapi juga melakukan proses pengolahan bahan baku, khususnya pada komoditas jernang, proses produksi dan buah hingga menjadi tepung jernang dan blok dengan dukungan 6 mesin produksi.',
+          badge: '6 Mesin Pabrik Aktif'
         },
         {
           id: 3,
           number: '03',
           icon: 'flask-conical',
           title: 'Quality Control & Laboratory',
-          description: 'Memiliki laboratorium khusus untuk menjaga standar kualitas sebelum dipasarkan dan diekspor.'
+          description: 'Memiliki laboratorium khusus serta fasilitas pengujian untuk menjaga standar kualitas sebelum dipasarkan dan diekspor. Setiap batch diuji kemurnian, kadar air, dan senyawa aktifnya.',
+          badge: 'Dedicated Lab Assays'
         },
         {
           id: 4,
           number: '04',
           icon: 'globe',
           title: 'Export & International Trading',
-          description: 'Pengalaman perdagangan ke pasar internasional termasuk China dan India.'
+          description: 'Pengalaman perdagangan dan pengiriman komoditas ke pasar internasional (termasuk China dan India) mulai dari perijinan, packing, karantina resmi, hingga ekspor transportasi kepelabuhan.',
+          badge: 'China & India Verified'
         }
       ],
       commodities: [

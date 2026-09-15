@@ -8,6 +8,9 @@ import HeroSection from '../components/HeroSection'
 import AboutSection from '../components/AboutSection'
 import PillarsSection from '../components/PillarsSection'
 import CommoditiesSection from '../components/CommoditiesSection'
+import OperationalSection from '../components/OperationalSection'
+import PortfolioSection from '../components/PortfolioSection'
+import LegalitasSection from '../components/LegalitasSection'
 import Footer from '../components/Footer'
 
 function HomePage() {
@@ -24,7 +27,6 @@ function HomePage() {
       setContent(response.data)
     } catch (error) {
       console.error('Error fetching content:', error)
-      // Set default content if API fails
       setContent(getDefaultContent())
     } finally {
       setLoading(false)
@@ -50,7 +52,10 @@ function HomePage() {
       <AboutSection data={content?.about} />
       <PillarsSection data={content?.pillars} />
       <CommoditiesSection data={content?.commodities} />
-      <Footer data={content?.footer} />
+      <OperationalSection />
+      <PortfolioSection />
+      <LegalitasSection />
+      <Footer data={content?.contact} />
     </div>
   )
 }

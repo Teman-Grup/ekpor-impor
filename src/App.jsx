@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { LanguageProvider } from './context/LanguageContext'
 
 // Pages
 import HomePage from './pages/HomePage'
@@ -22,23 +23,25 @@ function App() {
   }
 
   return (
-    <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/admin/login" element={<AdminLogin setAuth={setIsAuthenticated} />} />
-        
-        {/* Protected Admin Routes */}
-        <Route 
-          path="/admin/dashboard/*" 
-          element={
-            <ProtectedRoute>
-              <AdminDashboard setAuth={setIsAuthenticated} />
-            </ProtectedRoute>
-          } 
-        />
-      </Routes>
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/admin/login" element={<AdminLogin setAuth={setIsAuthenticated} />} />
+          
+          {/* Protected Admin Routes */}
+          <Route 
+            path="/admin/dashboard/*" 
+            element={
+              <ProtectedRoute>
+                <AdminDashboard setAuth={setIsAuthenticated} />
+              </ProtectedRoute>
+            } 
+          />
+        </Routes>
+      </Router>
+    </LanguageProvider>
   )
 }
 
