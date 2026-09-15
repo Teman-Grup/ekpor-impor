@@ -95,7 +95,7 @@ function Navigation({ data }) {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm transition-all">
+    <nav className="w-full bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm transition-all">
       <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-10">
         <div className="h-16 sm:h-20 flex items-center justify-between gap-2">
           
