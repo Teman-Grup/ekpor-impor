@@ -18,11 +18,22 @@ function AdminLogin({ setAuth }) {
 
     try {
       const response = await axios.post('/api/auth/login', credentials)
-      localStorage.setItem('adminToken', response.data.token)
-      setAuth(true)
-      navigate('/admin/dashboard')
+      if (response.data?.token) {
+        localStorage.setItem('adminToken', response.data.token)
+        setAuth(true)
+        navigate('/admin/dashboard')
+      } else {
+        setError('Respons server tidak valid.')
+      }
     } catch (err) {
-      setError(err.response?.data?.message || 'Login gagal. Silakan coba lagi.')
+      console.error('Login error details:', err)
+      if (err.response) {
+        setError(err.response.data?.message || `Gagal login (Error HTTP ${err.response.status})`)
+      } else if (err.request) {
+        setError('Tidak dapat menghubungi server backend. Pastikan URL backend Railway aktif dan terhubung di Vercel.')
+      } else {
+        setError(err.message || 'Login gagal. Silakan coba lagi.')
+      }
     } finally {
       setLoading(false)
     }

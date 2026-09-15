@@ -239,9 +239,10 @@ app.get('*', (req, res) => {
 
 // Initialize and start server
 initializeData().then(() => {
-  app.listen(PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on port ${PORT}`)
-    console.log(`📡 API: http://localhost:${PORT}/api`)
-    console.log(`🌐 Frontend: http://localhost:${PORT}`)
+    console.log(`📡 API: http://0.0.0.0:${PORT}/api`)
+    console.log(`🌐 Frontend: http://0.0.0.0:${PORT}`)
   })
 })
+
