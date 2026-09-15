@@ -1,27 +1,19 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { PageHeader, Alert, FormActions, InputField, SectionCard } from './AdminComponents'
 
 function EditHero() {
-  const [formData, setFormData] = useState({
-    badge: '',
-    title: '',
-    subtitle: '',
-    image: '',
-    established: '2016'
-  })
+  const [formData, setFormData] = useState({ badge: '', title: '', subtitle: '', image: '', established: '2016' })
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState({ type: '', text: '' })
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(() => { fetchData() }, [])
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/api/content/hero')
-      setFormData(response.data)
-    } catch (error) {
-      // Set default values
+      const res = await axios.get('/api/content/hero')
+      setFormData(res.data)
+    } catch {
       setFormData({
         badge: 'EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA',
         title: 'PT. ORIGINAL JERNANG ASIA',
@@ -36,116 +28,77 @@ function EditHero() {
     e.preventDefault()
     setSaving(true)
     setMessage({ type: '', text: '' })
-
     try {
       await axios.put('/api/content/hero', formData)
       setMessage({ type: 'success', text: 'Hero section berhasil diupdate!' })
-    } catch (error) {
-      setMessage({ type: 'error', text: 'Gagal menyimpan perubahan.' })
-    } finally {
-      setSaving(false)
-    }
+    } catch {
+      setMessage({ type: 'error', text: 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' })
+    } finally { setSaving(false) }
   }
 
   return (
-    <div className="max-w-4xl">
-      <div className="bg-white rounded-lg shadow-lg p-8 border border-stone-200">
-        <div className="mb-6">
-          <h2 className="text-2xl font-serif font-bold text-stone-900">Edit Hero Section</h2>
-          <p className="text-stone-600 mt-1">Kelola konten hero section di halaman utama</p>
-        </div>
-
-        {message.text && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
-              : 'bg-red-50 text-red-800 border border-red-200'
-          }`}>
-            {message.text}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="max-w-3xl">
+      <SectionCard>
+        <PageHeader
+          icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>}
+          title="Edit Hero Section"
+          description="Kelola teks dan gambar di bagian banner utama website"
+        />
+        <Alert type={message.type} text={message.text} onDismiss={() => setMessage({ type: '', text: '' })} />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <InputField
+            label="Badge Text"
+            id="hero-badge"
+            value={formData.badge}
+            onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
+            placeholder="EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA"
+          />
+          <InputField
+            label="Judul Utama"
+            id="hero-title"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            placeholder="PT. ORIGINAL JERNANG ASIA"
+          />
+          <InputField
+            label="Subtitle / Tagline"
+            id="hero-subtitle"
+            value={formData.subtitle}
+            onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
+            placeholder="Indonesian Natural Commodities Exporter & Trading"
+          />
+          <InputField
+            label="Tahun Berdiri"
+            id="hero-est"
+            type="number"
+            value={formData.established}
+            onChange={(e) => setFormData({ ...formData, established: e.target.value })}
+            placeholder="2016"
+          />
           <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-2">
-              Badge Text
-            </label>
-            <input
-              type="text"
-              value={formData.badge}
-              onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-              className="w-full px-4 py-3 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-crimson"
-              placeholder="EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-2">
-              Judul Utama
-            </label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-4 py-3 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-crimson text-xl font-bold"
-              placeholder="PT. ORIGINAL JERNANG ASIA"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-2">
-              Subtitle
-            </label>
-            <input
-              type="text"
-              value={formData.subtitle}
-              onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-              className="w-full px-4 py-3 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-crimson"
-              placeholder="Indonesian Natural Commodities Exporter & Trading"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-2">
-              Hero Image URL
-            </label>
+            <label className="block text-sm font-semibold text-stone-700 mb-1.5">Hero Image URL</label>
             <input
               type="text"
               value={formData.image}
               onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-              className="w-full px-4 py-3 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-crimson text-sm"
+              className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-crimson/40 focus:border-brand-crimson bg-white text-stone-900 text-sm transition"
               placeholder="https://..."
             />
             {formData.image && (
-              <div className="mt-3">
-                <img 
-                  src={formData.image} 
-                  alt="Preview" 
-                  className="w-full h-48 object-cover rounded-md border border-stone-200"
-                  onError={(e) => e.target.src = 'https://via.placeholder.com/800x400?text=Image+Not+Found'}
+              <div className="mt-3 relative overflow-hidden rounded-xl border border-stone-200">
+                <img
+                  src={formData.image}
+                  alt="Preview"
+                  className="w-full h-44 object-cover"
+                  onError={(e) => e.target.src = 'https://placehold.co/800x400?text=Image+Not+Found'}
                 />
+                <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-md">Preview</div>
               </div>
             )}
           </div>
-
-          <div className="flex gap-4 pt-4 border-t border-stone-200">
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-6 py-3 bg-brand-crimson hover:bg-brand-sienna text-white font-semibold rounded-md transition disabled:opacity-50"
-            >
-              {saving ? 'Menyimpan...' : 'Simpan Perubahan'}
-            </button>
-            <button
-              type="button"
-              onClick={fetchData}
-              className="px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-800 font-semibold rounded-md transition"
-            >
-              Reset
-            </button>
-          </div>
+          <FormActions saving={saving} onReset={fetchData} />
         </form>
-      </div>
+      </SectionCard>
     </div>
   )
 }

@@ -1,23 +1,19 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { PageHeader, Alert, FormActions, InputField, TextAreaField, SectionCard, AddButton, RemoveButton } from './AdminComponents'
 
 function EditAbout() {
-  const [formData, setFormData] = useState({
-    title: '',
-    paragraphs: ['']
-  })
+  const [formData, setFormData] = useState({ title: '', paragraphs: [''] })
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState({ type: '', text: '' })
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(() => { fetchData() }, [])
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('/api/content/about')
-      setFormData(response.data)
-    } catch (error) {
+      const res = await axios.get('/api/content/about')
+      setFormData(res.data)
+    } catch {
       setFormData({
         title: 'Tentang Kami & Integritas Perdagangan',
         paragraphs: [
@@ -33,123 +29,67 @@ function EditAbout() {
     e.preventDefault()
     setSaving(true)
     setMessage({ type: '', text: '' })
-
     try {
       await axios.put('/api/content/about', formData)
       setMessage({ type: 'success', text: 'Tentang Kami berhasil diupdate!' })
-    } catch (error) {
-      setMessage({ type: 'error', text: 'Gagal menyimpan perubahan.' })
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  const addParagraph = () => {
-    setFormData({
-      ...formData,
-      paragraphs: [...formData.paragraphs, '']
-    })
-  }
-
-  const removeParagraph = (index) => {
-    const newParagraphs = formData.paragraphs.filter((_, i) => i !== index)
-    setFormData({ ...formData, paragraphs: newParagraphs })
+    } catch {
+      setMessage({ type: 'error', text: 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' })
+    } finally { setSaving(false) }
   }
 
   const updateParagraph = (index, value) => {
-    const newParagraphs = [...formData.paragraphs]
-    newParagraphs[index] = value
-    setFormData({ ...formData, paragraphs: newParagraphs })
+    const arr = [...formData.paragraphs]
+    arr[index] = value
+    setFormData({ ...formData, paragraphs: arr })
   }
 
   return (
-    <div className="max-w-4xl">
-      <div className="bg-white rounded-lg shadow-lg p-8 border border-stone-200">
-        <div className="mb-6">
-          <h2 className="text-2xl font-serif font-bold text-stone-900">Edit Tentang Kami</h2>
-          <p className="text-stone-600 mt-1">Kelola konten section tentang perusahaan</p>
-        </div>
-
-        {message.text && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success' 
-              ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
-              : 'bg-red-50 text-red-800 border border-red-200'
-          }`}>
-            {message.text}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-semibold text-stone-700 mb-2">
-              Judul Section
-            </label>
-            <input
-              type="text"
-              value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full px-4 py-3 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-crimson"
-              placeholder="Tentang Kami & Integritas Perdagangan"
-            />
-          </div>
+    <div className="max-w-3xl">
+      <SectionCard>
+        <PageHeader
+          icon={<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>}
+          title="Edit Tentang Kami"
+          description="Kelola konten profil dan sejarah perusahaan"
+        />
+        <Alert type={message.type} text={message.text} onDismiss={() => setMessage({ type: '', text: '' })} />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <InputField
+            label="Judul Section"
+            id="about-title"
+            value={formData.title}
+            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+            placeholder="Tentang Kami & Integritas Perdagangan"
+          />
 
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-sm font-semibold text-stone-700">
-                Paragraf
-              </label>
-              <button
-                type="button"
-                onClick={addParagraph}
-                className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white text-sm rounded-md transition"
-              >
-                + Tambah Paragraf
-              </button>
+              <label className="text-sm font-semibold text-stone-700">Paragraf Konten</label>
+              <AddButton onClick={() => setFormData({ ...formData, paragraphs: [...formData.paragraphs, ''] })} label="Tambah Paragraf" />
             </div>
-
-            <div className="space-y-4">
-              {formData.paragraphs.map((paragraph, index) => (
-                <div key={index} className="relative">
-                  <textarea
-                    value={paragraph}
-                    onChange={(e) => updateParagraph(index, e.target.value)}
-                    className="w-full px-4 py-3 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-crimson"
-                    rows="4"
-                    placeholder={`Paragraf ${index + 1}`}
-                  />
+            <div className="space-y-3">
+              {formData.paragraphs.map((p, i) => (
+                <div key={i} className="flex gap-2 items-start">
+                  <div className="flex-shrink-0 w-6 h-6 rounded-lg bg-stone-100 flex items-center justify-center text-xs font-bold text-stone-500 mt-2">{i + 1}</div>
+                  <div className="flex-1">
+                    <TextAreaField
+                      id={`para-${i}`}
+                      value={p}
+                      onChange={(e) => updateParagraph(i, e.target.value)}
+                      rows={4}
+                      placeholder={`Paragraf ${i + 1}...`}
+                    />
+                  </div>
                   {formData.paragraphs.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeParagraph(index)}
-                      className="absolute top-2 right-2 px-2 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-md transition"
-                    >
-                      Hapus
-                    </button>
+                    <RemoveButton onClick={() => setFormData({ ...formData, paragraphs: formData.paragraphs.filter((_, idx) => idx !== i) })} />
                   )}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="flex gap-4 pt-4 border-t border-stone-200">
-            <button
-              type="submit"
-              disabled={saving}
-              className="px-6 py-3 bg-brand-crimson hover:bg-brand-sienna text-white font-semibold rounded-md transition disabled:opacity-50"
-            >
-              {saving ? 'Menyimpan...' : 'Simpan Perubahan'}
-            </button>
-            <button
-              type="button"
-              onClick={fetchData}
-              className="px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-800 font-semibold rounded-md transition"
-            >
-              Reset
-            </button>
-          </div>
+          <FormActions saving={saving} onReset={fetchData} />
         </form>
-      </div>
+      </SectionCard>
     </div>
   )
 }
