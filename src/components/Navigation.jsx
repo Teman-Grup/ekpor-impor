@@ -47,13 +47,15 @@ function Navigation({ data }) {
           <a className="hover:text-brand-sienna transition-colors py-2 border-b-2 border-transparent hover:border-brand-sienna" href="#kontak">{t.contact}</a>
         </div>
 
-        {/* Action Button */}
-        <div className="flex items-center gap-3">
+        {/* Action Button with margin */}
+        <div className="flex items-center gap-3 ml-8">
           <a 
-            className="inline-flex items-center justify-center px-5 py-2.5 bg-brand-sienna hover:bg-brand-crimson text-white text-xs font-semibold tracking-wider uppercase rounded-sm shadow transition duration-200" 
+            className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-brand-sienna hover:bg-brand-crimson text-white text-xs font-semibold tracking-wider uppercase rounded-sm shadow transition duration-200 whitespace-nowrap" 
             href="#kontak"
           >
-            {t.requestCatalog}
+            <span>REQUEST CATALOG</span>
+            <span className="text-stone-300">/</span>
+            <span>INQUIRY</span>
           </a>
         </div>
       </div>

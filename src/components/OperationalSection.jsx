@@ -1,20 +1,23 @@
 import { useEffect } from 'react'
+import { useLanguage } from '../context/LanguageContext'
 
 function OperationalSection() {
+  const { t, language } = useLanguage()
+  
   useEffect(() => {
     if (window.lucide) {
       window.lucide.createIcons()
     }
-  }, [])
+  }, [language])
 
   const steps = [
-    { num: '01', title: 'Sourcing', desc: 'Pengadaan bahan baku melalui jaringan petani dan pemasok hasil alam terpercaya.', label: 'HULU / PETANI' },
-    { num: '02', title: 'Selection', desc: 'Pemilahan dan penanganan bahan baku sebelum memasuki proses pengolahan pabrik.', label: 'SORTIR MUTU' },
-    { num: '03', title: 'Processing', desc: 'Pengolahan bahan baku menggunakan 6 unit mesin produksi berstandar Medan.', label: 'FABRIKASI' },
-    { num: '04', title: 'Quality Control', desc: 'Pengawalan kualitas produk melalui pemeriksaan dan uji laboratorium mandiri.', label: 'LAB TESTING' },
-    { num: '05', title: 'Packing', desc: 'Produk dipersiapkan dan dikemas rapi sesuai kebutuhan standar pengiriman internasional.', label: 'EXPORT PACKAGING' },
-    { num: '06', title: 'Quarantine', desc: 'Menjalani pemeriksaan karantina resmi negara sesuai regulasi perijinan.', label: 'PHYTOSANITARY' },
-    { num: '07', title: 'Export', desc: 'Produk dikirim kepada buyer internasional tepat waktu via ocean freight/air cargo.', label: 'FINAL DELIVERY' }
+    { num: '01', title: t.step1, desc: t.step1Desc, label: t.step1Label },
+    { num: '02', title: t.step2, desc: t.step2Desc, label: t.step2Label },
+    { num: '03', title: t.step3, desc: t.step3Desc, label: t.step3Label },
+    { num: '04', title: t.step4, desc: t.step4Desc, label: t.step4Label },
+    { num: '05', title: t.step5, desc: t.step5Desc, label: t.step5Label },
+    { num: '06', title: t.step6, desc: t.step6Desc, label: t.step6Label },
+    { num: '07', title: t.step7, desc: t.step7Desc, label: t.step7Label }
   ]
 
   const colors = ['bg-brand-crimson', 'bg-brand-sienna', 'bg-amber-700', 'bg-brand-crimson', 'bg-amber-800', 'bg-stone-700', 'bg-emerald-700']
@@ -23,10 +26,10 @@ function OperationalSection() {
     <section className="py-16 md:py-20 bg-[#f4f1ea] border-b border-stone-200" id="alur-operasional">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-1">END-TO-END EXPORT PIPELINE</span>
-          <h2 className="text-3xl font-serif font-bold text-stone-900">Proses Operasional 7 Tahap Terintegrasi</h2>
+          <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-1">{t.exportPipeline}</span>
+          <h2 className="text-3xl font-serif font-bold text-stone-900">{t.operationalTitle}</h2>
           <p className="text-stone-600 text-xs sm:text-sm mt-2">
-            Alur kerja sistematis kami menjamin setiap batch komoditas dari hulu hingga tiba di pelabuhan internasional memenuhi standar kualitas dan legalitas.
+            {t.operationalSubtitle}
           </p>
         </div>
 

@@ -1,4 +1,8 @@
+import { useLanguage } from '../context/LanguageContext'
+
 function CommoditiesSection({ data }) {
+  const { t } = useLanguage()
+  
   if (!data) return null
 
   const featured = data.filter(c => c.featured)
@@ -10,10 +14,10 @@ function CommoditiesSection({ data }) {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-stone-200 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-1">
-              KATALOG PERDAGANGAN RESMI
+              {t.officialCatalog}
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900">
-              Komoditas Unggulan & Portofolio
+              {t.commoditiesTitle}
             </h2>
           </div>
         </div>
@@ -32,7 +36,7 @@ function CommoditiesSection({ data }) {
                       onError={(e) => e.target.src = 'https://via.placeholder.com/800x600?text=No+Image'}
                     />
                     <div className="absolute top-4 left-4 bg-brand-crimson text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-sm shadow">
-                      KOMODITAS UTAMA
+                      {t.mainCommodity}
                     </div>
                   </div>
                   
@@ -70,7 +74,7 @@ function CommoditiesSection({ data }) {
         {others.length > 0 && (
           <>
             <h3 className="text-lg font-serif font-bold text-stone-800 mb-6 flex items-center gap-2">
-              <span>📦</span> KOMODITAS LAINNYA
+              <span>📦</span> {t.otherCommodities}
             </h3>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
