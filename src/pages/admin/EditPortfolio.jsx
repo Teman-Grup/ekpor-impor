@@ -33,8 +33,12 @@ function EditPortfolio() {
     try {
       await axios.put('/api/content/portfolio', data)
       setMessage({ type: 'success', text: 'Portfolio ekspor berhasil diupdate!' })
-    } catch {
-      setMessage({ type: 'error', text: 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' })
+    } catch (err) {
+      const errDetail = err.response?.data?.error || err.response?.data?.message
+      setMessage({ 
+        type: 'error', 
+        text: errDetail ? `Gagal menyimpan: ${errDetail}` : 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' 
+      })
     } finally { setSaving(false) }
   }
 

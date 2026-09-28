@@ -3,17 +3,46 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || 
+function sanitizeEnv(val, varName) {
+  if (!val) return ''
+  let s = String(val).trim()
+  if (varName && s.startsWith(`${varName}=`)) {
+    s = s.substring(varName.length + 1).trim()
+  }
+  s = s.replace(/^['"`]+|['"`]+$/g, '').trim()
+  return s
+}
+
+const rawUrl = sanitizeEnv(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL, 'SUPABASE_URL')
+let supabaseUrl = rawUrl
+if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith('https://')) {
+  supabaseUrl = `https://${supabaseUrl}`
+}
+if (supabaseUrl) {
+  supabaseUrl = supabaseUrl.replace(/\/+$/, '')
+}
+
+let supabaseKey = sanitizeEnv(
+  process.env.SUPABASE_SERVICE_ROLE_KEY || 
   process.env.SUPABASE_ANON_KEY || 
-  process.env.VITE_SUPABASE_ANON_KEY
+  process.env.VITE_SUPABASE_ANON_KEY,
+  'SUPABASE_ANON_KEY'
+)
+if (!supabaseKey && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  supabaseKey = sanitizeEnv(process.env.SUPABASE_SERVICE_ROLE_KEY, 'SUPABASE_SERVICE_ROLE_KEY')
+}
 
 let supabase = null
 
 if (supabaseUrl && supabaseKey) {
   try {
-    supabase = createClient(supabaseUrl, supabaseKey)
-    console.log('✅ Supabase Client initialized successfully')
+    supabase = createClient(supabaseUrl, supabaseKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false
+      }
+    })
+    console.log('✅ Supabase Client initialized successfully with URL:', supabaseUrl)
   } catch (error) {
     console.warn('⚠️ Gagal inisialisasi Supabase Client:', error.message)
   }
@@ -22,6 +51,13 @@ if (supabaseUrl && supabaseKey) {
 }
 
 export const isSupabaseConfigured = () => !!supabase
+
+export const getSupabaseConfigStatus = () => ({
+  configured: !!supabase,
+  urlHost: supabaseUrl ? supabaseUrl.replace(/https?:\/\//, '').split('/')[0] : 'not-set',
+  keyPrefix: supabaseKey ? supabaseKey.substring(0, 8) + '...' : 'not-set',
+  keyLength: supabaseKey ? supabaseKey.length : 0
+})
 
 /**
  * Mengambil semua konten dari tabel `site_content`
@@ -73,20 +109,27 @@ export async function getSupabaseSection(sectionKey) {
  */
 export async function upsertSupabaseSection(sectionKey, sectionData) {
   if (!supabase) return null
-  const { error } = await supabase
-    .from('site_content')
-    .upsert({
-      section_key: sectionKey,
-      data: sectionData,
-      updated_at: new Date().toISOString()
-    }, { onConflict: 'section_key' })
+  try {
+    const { error } = await supabase
+      .from('site_content')
+      .upsert({
+        section_key: sectionKey,
+        data: sectionData,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'section_key' })
 
-  if (error) {
-    console.error(`Error upserting section ${sectionKey} to Supabase:`, error.message)
-    throw error
+    if (error) {
+      console.error(`Error upserting section ${sectionKey} to Supabase:`, error.message)
+      throw new Error(error.message)
+    }
+
+    return sectionData
+  } catch (err) {
+    const causeMsg = err.cause ? (err.cause.message || err.cause.code || String(err.cause)) : null
+    const finalMsg = causeMsg ? `${err.message} (${causeMsg})` : err.message
+    console.error(`Supabase upsert error for ${sectionKey}:`, finalMsg)
+    throw new Error(finalMsg)
   }
-
-  return sectionData
 }
 
 export default supabase

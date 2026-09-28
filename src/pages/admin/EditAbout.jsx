@@ -32,8 +32,12 @@ function EditAbout() {
     try {
       await axios.put('/api/content/about', formData)
       setMessage({ type: 'success', text: 'Tentang Kami berhasil diupdate!' })
-    } catch {
-      setMessage({ type: 'error', text: 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' })
+    } catch (err) {
+      const errDetail = err.response?.data?.error || err.response?.data?.message
+      setMessage({ 
+        type: 'error', 
+        text: errDetail ? `Gagal menyimpan: ${errDetail}` : 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' 
+      })
     } finally { setSaving(false) }
   }
 

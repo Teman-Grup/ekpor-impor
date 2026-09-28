@@ -31,8 +31,12 @@ function EditHero() {
     try {
       await axios.put('/api/content/hero', formData)
       setMessage({ type: 'success', text: 'Hero section berhasil diupdate!' })
-    } catch {
-      setMessage({ type: 'error', text: 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' })
+    } catch (err) {
+      const errDetail = err.response?.data?.error || err.response?.data?.message
+      setMessage({ 
+        type: 'error', 
+        text: errDetail ? `Gagal menyimpan: ${errDetail}` : 'Gagal menyimpan. Perubahan hanya tersimpan sementara.' 
+      })
     } finally { setSaving(false) }
   }
 

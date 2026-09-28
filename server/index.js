@@ -8,7 +8,8 @@ import {
   getSupabaseAllContent, 
   getSupabaseSection, 
   upsertSupabaseSection, 
-  isSupabaseConfigured 
+  isSupabaseConfigured,
+  getSupabaseConfigStatus 
 } from './supabase.js'
 
 dotenv.config()
@@ -193,6 +194,17 @@ async function writeData(data) {
 }
 
 // Routes
+
+// Diagnostic / health check endpoint
+app.get('/api/health', async (req, res) => {
+  const sbStatus = getSupabaseConfigStatus()
+  res.json({
+    status: 'ok',
+    environment: process.env.VERCEL ? 'vercel_serverless' : 'local',
+    supabase: sbStatus,
+    timestamp: new Date().toISOString()
+  })
+})
 
 // Get all content
 app.get('/api/content', async (req, res) => {
