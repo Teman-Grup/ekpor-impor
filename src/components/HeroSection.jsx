@@ -21,15 +21,15 @@ function HeroSection({ data }) {
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-black/30 border border-amber-500/40 rounded-full text-amber-200 text-xs tracking-wider uppercase">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-              EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA
+              {data?.badge || 'EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA'}
             </div>
             
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-amber-50 leading-[1.15]">
-              {t.companyName}
+              {data?.title || t.companyName}
             </h1>
             
             <p className="text-xl sm:text-2xl font-serif italic text-amber-100/90 font-light">
-              {t.heroSubtitle}
+              {data?.subtitle || t.heroSubtitle}
             </p>
 
             {/* Core Values Badges */}

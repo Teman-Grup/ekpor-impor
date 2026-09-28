@@ -218,7 +218,18 @@ app.get('/api/content/:section', async (req, res) => {
       }
     }
     const data = await readData()
-    const sectionData = data[section]
+    let sectionData = data[section]
+    if (!sectionData && section === 'navbar') {
+      sectionData = {
+        companyName: data.navigation?.companyName || 'PT. ORIGINAL JERNANG ASIA',
+        tagline: data.navigation?.tagline || 'INDONESIAN NATURAL BOTANICAL COMMODITIES & TRADE',
+        phone: data.topBar?.phone || '+62 812 600 100 28',
+        email: data.topBar?.email || 'ptoriginaljernangasia@gmail.com',
+        whatsapp: data.topBar?.phone || '+62 812 600 100 28',
+        logoUrl: data.navigation?.logo || ''
+      }
+      return res.json(sectionData)
+    }
     if (!sectionData) {
       return res.status(404).json({ message: 'Section not found' })
     }
@@ -237,6 +248,14 @@ app.put('/api/content/:section', async (req, res) => {
     if (isSupabaseConfigured()) {
       try {
         await upsertSupabaseSection(section, req.body)
+        if (section === 'navbar') {
+          // Sync with navigation & topBar in Supabase
+          await upsertSupabaseSection('navigation', {
+            companyName: req.body.companyName,
+            tagline: req.body.tagline,
+            logo: req.body.logoUrl || '/assets/logo.png'
+          })
+        }
         savedToSupabase = true
       } catch (sbError) {
         console.warn(`⚠️ Supabase error on save /api/content/${section}:`, sbError.message)
@@ -246,6 +265,19 @@ app.put('/api/content/:section', async (req, res) => {
     // Tetap simpan ke file lokal data.json sebagai backup sinkronisasi
     const data = await readData()
     data[section] = req.body
+    if (section === 'navbar') {
+      data.navigation = {
+        ...data.navigation,
+        companyName: req.body.companyName,
+        tagline: req.body.tagline,
+        logo: req.body.logoUrl || data.navigation?.logo || '/assets/logo.png'
+      }
+      data.topBar = {
+        ...data.topBar,
+        phone: req.body.phone,
+        email: req.body.email
+      }
+    }
     await writeData(data)
 
     res.json({ 

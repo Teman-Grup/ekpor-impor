@@ -10,14 +10,16 @@ function AboutSection({ data }) {
     }
   }, [language])
 
-  // Use translations for paragraphs
-  const paragraphs = [
-    t.aboutPara1,
-    t.aboutPara2,
-    t.aboutPara3,
-    t.aboutPara4,
-    t.aboutPara5
-  ]
+  // Use dynamic data paragraphs if available, otherwise fallback to translations
+  const paragraphs = (data?.paragraphs && Array.isArray(data.paragraphs) && data.paragraphs.length > 0)
+    ? data.paragraphs
+    : [
+        t.aboutPara1,
+        t.aboutPara2,
+        t.aboutPara3,
+        t.aboutPara4,
+        t.aboutPara5
+      ]
 
   return (
     <section className="py-16 md:py-24 bg-[#fbf9f4] border-b border-stone-200" id="tentang-kami">
@@ -31,7 +33,7 @@ function AboutSection({ data }) {
             </div>
             
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 leading-tight">
-              {t.aboutTitle}
+              {data?.title || t.aboutTitle}
             </h2>
             
             <div className="space-y-4 text-stone-600 leading-relaxed text-sm sm:text-base">

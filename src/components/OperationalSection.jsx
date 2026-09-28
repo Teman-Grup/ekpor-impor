@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 
-function OperationalSection() {
+function OperationalSection({ data }) {
   const { t, language } = useLanguage()
   
   useEffect(() => {
@@ -10,7 +10,7 @@ function OperationalSection() {
     }
   }, [language])
 
-  const steps = [
+  const defaultSteps = [
     { num: '01', title: t.step1, desc: t.step1Desc, label: t.step1Label },
     { num: '02', title: t.step2, desc: t.step2Desc, label: t.step2Label },
     { num: '03', title: t.step3, desc: t.step3Desc, label: t.step3Label },
@@ -20,6 +20,15 @@ function OperationalSection() {
     { num: '07', title: t.step7, desc: t.step7Desc, label: t.step7Label }
   ]
 
+  const steps = (data?.steps && Array.isArray(data.steps) && data.steps.length > 0)
+    ? data.steps.map((s, idx) => ({
+        num: s.step || `0${idx + 1}`,
+        title: s.title,
+        desc: s.description || s.desc,
+        label: s.label || `Langkah 0${idx + 1}`
+      }))
+    : defaultSteps
+
   const colors = ['bg-brand-crimson', 'bg-brand-sienna', 'bg-amber-700', 'bg-brand-crimson', 'bg-amber-800', 'bg-stone-700', 'bg-emerald-700']
 
   return (
@@ -27,9 +36,9 @@ function OperationalSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-1">{t.exportPipeline}</span>
-          <h2 className="text-3xl font-serif font-bold text-stone-900">{t.operationalTitle}</h2>
+          <h2 className="text-3xl font-serif font-bold text-stone-900">{data?.title || t.operationalTitle}</h2>
           <p className="text-stone-600 text-xs sm:text-sm mt-2">
-            {t.operationalSubtitle}
+            {data?.subtitle || t.operationalSubtitle}
           </p>
         </div>
 

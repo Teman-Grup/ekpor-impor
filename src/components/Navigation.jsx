@@ -107,15 +107,15 @@ function Navigation({ data }) {
               <img 
                 alt="PT. Original Jernang Asia Logo" 
                 className="w-full h-full object-contain" 
-                src="/assets/logo.png"
+                src={data?.logoUrl || data?.logo || '/assets/logo.png'}
               />
             </div>
             <div className="flex flex-col justify-center">
               <span className="font-serif text-sm sm:text-base lg:text-lg xl:text-xl font-bold tracking-tight text-stone-900 group-hover:text-brand-crimson transition-colors leading-tight whitespace-nowrap">
-                {t.companyName || 'PT. ORIGINAL JERNANG ASIA'}
+                {data?.companyName || t.companyName || 'PT. ORIGINAL JERNANG ASIA'}
               </span>
               <span className="hidden xl:block text-[10px] font-semibold tracking-wider text-brand-sienna uppercase mt-0.5 leading-tight whitespace-nowrap">
-                {t.tagline || 'INDONESIAN NATURAL BOTANICAL COMMODITIES & TRADE'}
+                {data?.tagline || t.tagline || 'INDONESIAN NATURAL BOTANICAL COMMODITIES & TRADE'}
               </span>
             </div>
           </a>

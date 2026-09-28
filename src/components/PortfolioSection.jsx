@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 
-function PortfolioSection() {
+function PortfolioSection({ data }) {
   const { t, language } = useLanguage()
   
   useEffect(() => {
@@ -16,8 +16,8 @@ function PortfolioSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-stone-200 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-1">{t.globalMarket}</span>
-            <h2 className="text-3xl font-serif font-bold text-stone-900">{t.portfolioTitle}</h2>
-            <p className="text-stone-600 text-xs sm:text-sm mt-1">{t.portfolioSubtitle}</p>
+            <h2 className="text-3xl font-serif font-bold text-stone-900">{data?.title || t.portfolioTitle}</h2>
+            <p className="text-stone-600 text-xs sm:text-sm mt-1">{data?.subtitle || t.portfolioSubtitle}</p>
           </div>
           <div className="text-xs bg-white border border-stone-300 px-3 py-1.5 rounded flex items-center gap-2 text-stone-700">
             <i className="w-4 h-4 text-brand-sienna" data-lucide="anchor"></i>

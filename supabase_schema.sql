@@ -191,6 +191,17 @@ values
   }'::jsonb
 ),
 (
+  'navbar',
+  '{
+    "companyName": "PT. ORIGINAL JERNANG ASIA",
+    "tagline": "INDONESIAN NATURAL BOTANICAL COMMODITIES & TRADE",
+    "phone": "+62 812 600 100 28",
+    "email": "ptoriginaljernangasia@gmail.com",
+    "whatsapp": "+62 812 600 100 28",
+    "logoUrl": ""
+  }'::jsonb
+),
+(
   'portfolio',
   '{
     "title": "Portfolio Ekspor",

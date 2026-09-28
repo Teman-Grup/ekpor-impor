@@ -49,16 +49,16 @@ function HomePage() {
     <div className="min-h-screen bg-brand-cream">
       {/* Sticky Header: TopBar + Navigation */}
       <header className="sticky top-0 z-50 w-full bg-white shadow-sm">
-        <TopBar data={content?.topBar} />
-        <Navigation data={content?.navigation} />
+        <TopBar data={{ ...(content?.topBar || {}), ...(content?.navbar || {}) }} />
+        <Navigation data={{ ...(content?.navigation || {}), ...(content?.navbar || {}) }} />
       </header>
       <HeroSection data={content?.hero} />
       <AboutSection data={content?.about} />
       <PillarsSection data={content?.pillars} />
       <CommoditiesSection data={content?.commodities} />
-      <OperationalSection />
-      <PortfolioSection />
-      <LegalitasSection />
+      <OperationalSection data={content?.operational} />
+      <PortfolioSection data={content?.portfolio} />
+      <LegalitasSection data={content?.legalitas} />
       <Footer data={content?.contact} />
     </div>
   )

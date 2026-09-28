@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 
-function LegalitasSection() {
+function LegalitasSection({ data }) {
   const { t, language } = useLanguage()
   
   useEffect(() => {
@@ -17,8 +17,8 @@ function LegalitasSection() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-stone-200 gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-1">{t.legalityDoc}</span>
-              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">{t.legalityTitle}</h2>
-              <p className="text-xs text-stone-500 mt-1">{t.legalitySubtitle}</p>
+              <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">{data?.title || t.legalityTitle}</h2>
+              <p className="text-xs text-stone-500 mt-1">{data?.subtitle || t.legalitySubtitle}</p>
             </div>
             <div className="flex items-center gap-2 bg-emerald-50 text-emerald-800 border border-emerald-300 px-3 py-1.5 rounded text-xs font-semibold">
               <i className="w-4 h-4 text-emerald-600" data-lucide="badge-check"></i>
