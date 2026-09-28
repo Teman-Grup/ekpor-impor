@@ -172,13 +172,24 @@ async function initializeData() {
 
 // Read data from file
 async function readData() {
-  const data = await fs.readFile(DATA_FILE, 'utf-8')
-  return JSON.parse(data)
+  try {
+    const data = await fs.readFile(DATA_FILE, 'utf-8')
+    return JSON.parse(data)
+  } catch (err) {
+    console.warn('⚠️ Gagal membaca data.json lokal:', err.message)
+    return {}
+  }
 }
 
 // Write data to file
 async function writeData(data) {
-  await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2))
+  try {
+    if (!process.env.VERCEL) {
+      await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2))
+    }
+  } catch (err) {
+    console.warn('⚠️ Gagal menulis file lokal (read-only filesystem):', err.message)
+  }
 }
 
 // Routes
@@ -244,6 +255,7 @@ app.put('/api/content/:section', async (req, res) => {
   try {
     const { section } = req.params
     let savedToSupabase = false
+    let sbErrorDetail = null
 
     if (isSupabaseConfigured()) {
       try {
@@ -255,30 +267,49 @@ app.put('/api/content/:section', async (req, res) => {
             tagline: req.body.tagline,
             logo: req.body.logoUrl || '/assets/logo.png'
           })
+          await upsertSupabaseSection('topBar', {
+            phone: req.body.phone,
+            email: req.body.email
+          })
         }
         savedToSupabase = true
       } catch (sbError) {
         console.warn(`⚠️ Supabase error on save /api/content/${section}:`, sbError.message)
+        sbErrorDetail = sbError.message
       }
     }
 
-    // Tetap simpan ke file lokal data.json sebagai backup sinkronisasi
-    const data = await readData()
-    data[section] = req.body
-    if (section === 'navbar') {
-      data.navigation = {
-        ...data.navigation,
-        companyName: req.body.companyName,
-        tagline: req.body.tagline,
-        logo: req.body.logoUrl || data.navigation?.logo || '/assets/logo.png'
-      }
-      data.topBar = {
-        ...data.topBar,
-        phone: req.body.phone,
-        email: req.body.email
+    // Jika bukan di Vercel, simpan juga ke file lokal data.json
+    if (!process.env.VERCEL) {
+      try {
+        const data = await readData()
+        data[section] = req.body
+        if (section === 'navbar') {
+          data.navigation = {
+            ...data.navigation,
+            companyName: req.body.companyName,
+            tagline: req.body.tagline,
+            logo: req.body.logoUrl || data.navigation?.logo || '/assets/logo.png'
+          }
+          data.topBar = {
+            ...data.topBar,
+            phone: req.body.phone,
+            email: req.body.email
+          }
+        }
+        await writeData(data)
+      } catch (fileErr) {
+        console.warn('⚠️ Gagal simpan ke file lokal:', fileErr.message)
       }
     }
-    await writeData(data)
+
+    // Jika di Vercel dan Supabase gagal disimpan:
+    if (process.env.VERCEL && !savedToSupabase) {
+      return res.status(500).json({ 
+        message: 'Gagal menyimpan ke Supabase.',
+        error: sbErrorDetail || 'Supabase credentials belum dikonfigurasi di Environment Variables Vercel.'
+      })
+    }
 
     res.json({ 
       message: 'Updated successfully', 
@@ -286,7 +317,8 @@ app.put('/api/content/:section', async (req, res) => {
       data: req.body 
     })
   } catch (error) {
-    res.status(500).json({ message: 'Error updating data' })
+    console.error('Error updating data:', error)
+    res.status(500).json({ message: 'Error updating data', error: error.message })
   }
 })
 
