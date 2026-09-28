@@ -4,6 +4,12 @@ import dotenv from 'dotenv'
 import fs from 'fs/promises'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { 
+  getSupabaseAllContent, 
+  getSupabaseSection, 
+  upsertSupabaseSection, 
+  isSupabaseConfigured 
+} from './supabase.js'
 
 dotenv.config()
 
@@ -180,6 +186,16 @@ async function writeData(data) {
 // Get all content
 app.get('/api/content', async (req, res) => {
   try {
+    if (isSupabaseConfigured()) {
+      try {
+        const supabaseData = await getSupabaseAllContent()
+        if (supabaseData && Object.keys(supabaseData).length > 0) {
+          return res.json(supabaseData)
+        }
+      } catch (sbError) {
+        console.warn('⚠️ Supabase error on /api/content, fallback ke data.json:', sbError.message)
+      }
+    }
     const data = await readData()
     res.json(data)
   } catch (error) {
@@ -190,12 +206,23 @@ app.get('/api/content', async (req, res) => {
 // Get specific section
 app.get('/api/content/:section', async (req, res) => {
   try {
+    const { section } = req.params
+    if (isSupabaseConfigured()) {
+      try {
+        const sectionData = await getSupabaseSection(section)
+        if (sectionData !== null) {
+          return res.json(sectionData)
+        }
+      } catch (sbError) {
+        console.warn(`⚠️ Supabase error on get /api/content/${section}, fallback ke data.json:`, sbError.message)
+      }
+    }
     const data = await readData()
-    const section = data[req.params.section]
-    if (!section) {
+    const sectionData = data[section]
+    if (!sectionData) {
       return res.status(404).json({ message: 'Section not found' })
     }
-    res.json(section)
+    res.json(sectionData)
   } catch (error) {
     res.status(500).json({ message: 'Error reading data' })
   }
@@ -204,10 +231,28 @@ app.get('/api/content/:section', async (req, res) => {
 // Update specific section
 app.put('/api/content/:section', async (req, res) => {
   try {
+    const { section } = req.params
+    let savedToSupabase = false
+
+    if (isSupabaseConfigured()) {
+      try {
+        await upsertSupabaseSection(section, req.body)
+        savedToSupabase = true
+      } catch (sbError) {
+        console.warn(`⚠️ Supabase error on save /api/content/${section}:`, sbError.message)
+      }
+    }
+
+    // Tetap simpan ke file lokal data.json sebagai backup sinkronisasi
     const data = await readData()
-    data[req.params.section] = req.body
+    data[section] = req.body
     await writeData(data)
-    res.json({ message: 'Updated successfully', data: req.body })
+
+    res.json({ 
+      message: 'Updated successfully', 
+      source: savedToSupabase ? 'supabase' : 'local_json',
+      data: req.body 
+    })
   } catch (error) {
     res.status(500).json({ message: 'Error updating data' })
   }
@@ -217,32 +262,35 @@ app.put('/api/content/:section', async (req, res) => {
 app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body
   
-  // Simple hardcoded auth (replace with proper auth in production)
-  if (username === 'admin' && password === 'admin123') {
+  const validUser = process.env.ADMIN_USERNAME || 'admin'
+  const validPass = process.env.ADMIN_PASSWORD || 'admin123'
+
+  if (username === validUser && password === validPass) {
     res.json({
-      token: 'dummy-jwt-token-' + Date.now(),
-      user: { username: 'admin' }
+      token: 'jwt-token-' + Date.now(),
+      user: { username: validUser }
     })
   } else {
     res.status(401).json({ message: 'Username atau password salah' })
   }
 })
 
-// Serve static files from React build (for production)
-app.use(express.static(path.join(__dirname, '../dist')))
-
-// Handle React routing - return all requests to React app
-// This should be the LAST route (after all API routes)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist', 'index.html'))
-})
-
-// Initialize and start server
-initializeData().then(() => {
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Server running on port ${PORT}`)
-    console.log(`📡 API: http://0.0.0.0:${PORT}/api`)
-    console.log(`🌐 Frontend: http://0.0.0.0:${PORT}`)
+// Serve static files from React build (for local production / VPS)
+if (!process.env.VERCEL) {
+  app.use(express.static(path.join(__dirname, '../dist')))
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../dist', 'index.html'))
   })
-})
+
+  // Initialize and start local server
+  initializeData().then(() => {
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`🚀 Server running on port ${PORT}`)
+      console.log(`📡 API: http://0.0.0.0:${PORT}/api`)
+      console.log(`🌐 Frontend: http://0.0.0.0:${PORT}`)
+    })
+  })
+}
+
+export default app
 
