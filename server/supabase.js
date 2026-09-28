@@ -40,6 +40,9 @@ if (supabaseUrl && supabaseKey) {
       auth: {
         persistSession: false,
         autoRefreshToken: false
+      },
+      realtime: {
+        transport: class {}
       }
     })
     console.log('✅ Supabase Client initialized successfully with URL:', supabaseUrl)
