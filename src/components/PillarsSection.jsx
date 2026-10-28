@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLanguage } from '../context/LanguageContext'
+import Reveal from './Reveal'
 
 function PillarsSection({ data }) {
   const { t, language } = useLanguage()
@@ -17,7 +18,6 @@ function PillarsSection({ data }) {
     { id: 4, number: '04', icon: 'globe', badge: 'Export Network' }
   ]
 
-  // Translate pillar content
   const translatedPillars = [
     { ...rawPillars[0], title: t.pillar1Title, description: t.pillar1Desc },
     { ...rawPillars[1], title: t.pillar2Title, description: t.pillar2Desc },
@@ -26,43 +26,81 @@ function PillarsSection({ data }) {
   ]
 
   return (
-    <section className="py-16 bg-stone-100/70 border-b border-stone-200" id="bisnis-pengolahan">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-widest text-brand-sienna block mb-2">{t.mainPillars}</span>
-          <h2 className="text-3xl font-serif font-bold text-stone-900">
+    <section
+      id="bisnis-pengolahan"
+      className="relative overflow-hidden bg-brand-forest py-20 text-white md:py-28"
+    >
+      {/* Atmosphere */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(900px_500px_at_15%_0%,rgba(180,59,24,0.28),transparent_65%),radial-gradient(800px_480px_at_90%_100%,rgba(200,75,35,0.18),transparent_60%)]"
+      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 grid-lines opacity-40" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-14 max-w-3xl text-center">
+          <Reveal variant="fade">
+            <span className="inline-flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-amber-400/90">
+              <span className="h-px w-8 bg-amber-400/50" />
+              {t.mainPillars}
+              <span className="h-px w-8 bg-amber-400/50" />
+            </span>
+          </Reveal>
+          <Reveal as="h2" variant="mask" delay={90} className="mt-5 font-serif text-3xl font-bold leading-tight tracking-tight text-amber-50 sm:text-4xl lg:text-[2.9rem]">
             {t.pillarsTitle}
-          </h2>
-          <p className="text-stone-600 text-sm mt-3">{t.pillarsSubtitle}</p>
+          </Reveal>
+          <Reveal variant="up" delay={200} className="mx-auto mt-4 max-w-2xl">
+            <p className="text-sm leading-relaxed text-stone-300/80">{t.pillarsSubtitle}</p>
+          </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {translatedPillars.map((pillar, index) => (
-            <div 
-              key={pillar.id || index} 
-              className="bg-white p-6 rounded-sm border border-stone-200 shadow-sm flex flex-col justify-between hover:border-brand-sienna transition duration-200"
-            >
-              <div>
-                <div className="w-12 h-12 rounded bg-amber-50 text-brand-sienna flex items-center justify-center mb-4">
-                  <i className="w-6 h-6" data-lucide={pillar.icon}></i>
-                </div>
-                <span className="text-[11px] font-mono font-bold text-stone-400 uppercase tracking-widest block">
-                  Pillar {pillar.number}
+            <Reveal key={pillar.id || index} variant="up" delay={index * 110}>
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.035] p-6 backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-amber-400/45 hover:bg-white/[0.07] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.8)]">
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-1 top-2 select-none font-serif text-[5.5rem] font-bold leading-none text-white/[0.05] transition-colors duration-500 group-hover:text-amber-400/20"
+                >
+                  {pillar.number}
                 </span>
-                <h3 className="text-lg font-serif font-bold text-stone-900 mt-1 mb-2">
-                  {pillar.title}
-                </h3>
-                <p className="text-xs text-stone-600 leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
-              <div className="pt-4 mt-4 border-t border-stone-100 flex items-center text-xs font-semibold text-brand-sienna">
-                <span>{pillar.badge || 'Supply Network'}</span>
-                <i className="w-3.5 h-3.5 ml-1" data-lucide="chevron-right"></i>
-              </div>
-            </div>
+
+                <div className="relative">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-amber-500/10 text-amber-300 ring-1 ring-inset ring-amber-400/20 transition-all duration-500 group-hover:bg-amber-500 group-hover:text-stone-950 group-hover:ring-amber-400">
+                    <i className="h-5 w-5 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110" data-lucide={pillar.icon}></i>
+                  </div>
+
+                  <span className="mt-5 block font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-amber-400/70">
+                    PILLAR {pillar.number}
+                  </span>
+                  <h3 className="mt-1.5 font-serif text-lg font-bold leading-snug text-amber-50">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-2.5 text-xs leading-relaxed text-stone-300/75">
+                    {pillar.description}
+                  </p>
+                </div>
+
+                <div className="mt-auto flex items-center gap-2 border-t border-white/10 pt-4 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-amber-300/80">
+                  <span>{pillar.badge || 'Supply Network'}</span>
+                  <i className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-1" data-lucide="arrow-right"></i>
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
+
+        <Reveal variant="fade" delay={220} className="mt-12">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-white/10 pt-8 text-[10px] uppercase tracking-[0.24em] text-stone-400/70">
+            <span>Medan • North Sumatra</span>
+            <span className="h-1 w-1 rounded-full bg-amber-500/60" />
+            <span>In-house Processing</span>
+            <span className="h-1 w-1 rounded-full bg-amber-500/60" />
+            <span>Export Ready</span>
+            <span className="h-1 w-1 rounded-full bg-amber-500/60" />
+            <span>China & India</span>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

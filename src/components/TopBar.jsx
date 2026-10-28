@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
 
 function TopBar({ data }) {
   const { language, changeLanguage, t } = useLanguage()
+  const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
     if (window.lucide) {
@@ -10,53 +11,80 @@ function TopBar({ data }) {
     }
   }, [language])
 
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 32)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const phone = data?.phone || '+62 812 600 100 28'
   const email = data?.email || 'ptoriginaljernangasia@gmail.com'
 
   return (
-    <header className="w-full bg-[#181816] text-[#c9c5be] text-xs border-b border-stone-800">
-      <div className="w-full px-3 sm:px-6 lg:px-8 xl:px-10 py-1.5 sm:py-2 flex flex-row flex-wrap sm:flex-nowrap justify-between items-center gap-2">
-        {/* Left Contact Info */}
-        <div className="flex items-center flex-wrap gap-3 sm:gap-6 text-[11px] sm:text-xs">
-          <span className="hidden sm:inline-flex items-center gap-1.5 text-stone-300">
-            <i className="w-3.5 h-3.5 text-brand-sienna" data-lucide="map-pin"></i>
+    <header
+      className={`w-full overflow-hidden bg-[#14130f] text-[#c9c5be] transition-[max-height,opacity] duration-500 ease-out ${
+        isScrolled ? 'max-h-0 opacity-0' : 'max-h-28 opacity-100'
+      }`}
+    >
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-brand-sienna/70 to-transparent" />
+      <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-2 px-3 py-2 sm:flex-nowrap sm:px-6 lg:px-8 xl:px-10">
+        <div className="flex flex-wrap items-center gap-3 text-[11px] sm:gap-6 sm:text-xs">
+          <span className="hidden items-center gap-1.5 text-stone-400 sm:inline-flex">
+            <i className="h-3.5 w-3.5 text-brand-sienna" data-lucide="map-pin"></i>
             {t.location}
           </span>
-          <a className="inline-flex items-center gap-1.5 hover:text-white transition-colors" href={`tel:${phone.replace(/\s/g, '')}`}>
-            <i className="w-3.5 h-3.5 text-brand-sienna" data-lucide="phone"></i>
+          <a
+            className="group inline-flex items-center gap-1.5 transition-colors hover:text-white"
+            href={`tel:${phone.replace(/\s/g, '')}`}
+          >
+            <i className="h-3.5 w-3.5 text-brand-sienna" data-lucide="phone"></i>
             <span>{phone}</span>
           </a>
-          <a className="hidden md:inline-flex items-center gap-1.5 hover:text-white transition-colors" href={`mailto:${email}`}>
-            <i className="w-3.5 h-3.5 text-brand-sienna" data-lucide="mail"></i>
+          <a
+            className="hidden items-center gap-1.5 transition-colors hover:text-white md:inline-flex"
+            href={`mailto:${email}`}
+          >
+            <i className="h-3.5 w-3.5 text-brand-sienna" data-lucide="mail"></i>
             <span>{email}</span>
           </a>
         </div>
-        
-        {/* Right Utility Links & Language */}
-        <div className="flex items-center gap-3 sm:gap-4 text-[11px] uppercase tracking-wider ml-auto">
-          <div className="flex items-center gap-1 text-stone-400 font-medium">
-            <button 
+
+        <div className="ml-auto flex items-center gap-3 sm:gap-5 text-[10px] uppercase tracking-[0.18em]">
+          <span className="hidden items-center gap-1.5 text-stone-500 lg:inline-flex">
+            <span className="h-1 w-1 rounded-full bg-emerald-500" />
+            Open for trade inquiries
+          </span>
+          <div className="flex items-center gap-1 font-medium text-stone-400">
+            <button
               type="button"
-              className={`${language === 'id' ? 'text-amber-400 font-bold' : 'hover:text-white'} transition-colors px-1`}
+              className={`px-1 transition-colors ${language === 'id' ? 'font-bold text-amber-400' : 'hover:text-white'}`}
               onClick={() => changeLanguage('id')}
               aria-label="Bahasa Indonesia"
             >
               ID
             </button>
             <span className="text-stone-600">/</span>
-            <button 
+            <button
               type="button"
-              className={`${language === 'en' ? 'text-amber-400 font-bold' : 'hover:text-white'} transition-colors px-1`}
+              className={`px-1 transition-colors ${language === 'en' ? 'font-bold text-amber-400' : 'hover:text-white'}`}
               onClick={() => changeLanguage('en')}
               aria-label="English"
             >
               EN
             </button>
           </div>
-          <span className="text-stone-700 hidden sm:inline">|</span>
-          <a className="inline-flex items-center gap-1 text-amber-500 hover:text-amber-400 font-semibold tracking-wide uppercase text-[10px] sm:text-[11px]" href="#kontak">
-            <i className="w-3.5 h-3.5" data-lucide="file-check-2"></i>
+          <span className="hidden text-stone-700 sm:inline">|</span>
+          <a
+            className="group inline-flex items-center gap-1.5 font-semibold uppercase tracking-[0.14em] text-amber-500 transition-colors hover:text-amber-400"
+            href="#kontak"
+          >
+            <i className="h-3.5 w-3.5" data-lucide="file-check-2"></i>
             <span>{t.tradeDesk}</span>
+            <i
+              className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5"
+              data-lucide="arrow-up-right"
+            ></i>
           </a>
         </div>
       </div>
@@ -65,4 +93,3 @@ function TopBar({ data }) {
 }
 
 export default TopBar
-

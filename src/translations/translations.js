@@ -81,6 +81,10 @@ const translations = {
     gradeEksporTerpilih: "Ekspor Terpilih",
     gradeKustomisasi: "Kustomisasi Spesifikasi Buyer",
     formsBuahTepungBlok: "Buah, Tepung & Blok",
+    officialCatalog: "KATALOG PERDAGANGAN RESMI",
+    commoditiesTitle: "Komoditas Unggulan & Portofolio Alam",
+    mainCommodity: "KOMODITAS UTAMA",
+    otherCommodities: "KOMODITAS LAIN DALAM PORTOFOLIO",
     
     // Operational
     exportPipeline: "END-TO-END EXPORT PIPELINE",
