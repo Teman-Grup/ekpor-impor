@@ -134,17 +134,17 @@ function OperationalSection({ data }) {
                 </span>
               </Reveal>
               <Reveal as="h2" variant="mask" delay={80} className="mt-4 font-serif text-3xl font-bold leading-tight tracking-tight text-stone-900 xl:text-[2.8rem]">
-                {data?.title || t.operationalTitle}
+                {language === 'id' && data?.title ? data.title : t.operationalTitle}
               </Reveal>
               <Reveal variant="up" delay={160}>
                 <p className="mt-2 max-w-xl text-xs leading-relaxed text-stone-500 xl:text-sm">
-                  {data?.subtitle || t.operationalSubtitle}
+                  {language === 'id' && data?.subtitle ? data.subtitle : t.operationalSubtitle}
                 </p>
               </Reveal>
             </div>
 
             <div className="flex flex-col items-end gap-2 pb-1">
-              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-stone-400">PIPELINE</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-stone-400">{t.pipeline}</span>
               <div className="flex items-baseline gap-1 font-serif">
                 <span className="text-4xl font-bold leading-none text-brand-crimson">
                   {String(activeStep + 1).padStart(2, '0')}
@@ -233,7 +233,7 @@ function OperationalSection({ data }) {
             </span>
           </div>
           <p className="mt-3 text-center text-[9px] uppercase tracking-[0.3em] text-stone-400/80">
-            Keep scrolling — the pipeline moves horizontally
+            {t.scrollHint}
           </p>
         </div>
       </div>
@@ -248,11 +248,11 @@ function OperationalSection({ data }) {
             </span>
           </Reveal>
           <Reveal as="h2" variant="mask" delay={80} className="mt-4 font-serif text-3xl font-bold leading-tight tracking-tight text-stone-900">
-            {data?.title || t.operationalTitle}
+            {language === 'id' && data?.title ? data.title : t.operationalTitle}
           </Reveal>
           <Reveal variant="up" delay={160}>
             <p className="mt-3 text-xs leading-relaxed text-stone-500 sm:text-sm">
-              {data?.subtitle || t.operationalSubtitle}
+              {language === 'id' && data?.subtitle ? data.subtitle : t.operationalSubtitle}
             </p>
           </Reveal>
 

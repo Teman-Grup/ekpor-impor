@@ -3,19 +3,20 @@ import { useLanguage } from '../context/LanguageContext'
 import Reveal from './Reveal'
 import Marquee from './Marquee'
 
-const marqueeItems = [
-  'ORIGINAL JERNANG ASIA',
-  "DRAGON'S BLOOD",
-  'KAYU GAHARU',
-  'KEMENYAN',
-  'DAMAR BATU',
-  'LIDI',
-  'BUAH PINANG'
+const marqueeKeys = [
+  'companyName',
+  'commodityJernang',
+  'commodityGaharu',
+  'commodityKemenyan',
+  'commodityDamar',
+  'commodityLidi',
+  'commodityPinang'
 ]
 
 function Footer({ data }) {
   const { t, language } = useLanguage()
   const currentYear = new Date().getFullYear()
+  const marqueeItems = marqueeKeys.map((key) => t[key])
 
   useEffect(() => {
     if (window.lucide) {
@@ -25,19 +26,19 @@ function Footer({ data }) {
 
   const phone = data?.phone || '+62 812 600 100 28'
   const email = data?.email || 'ptoriginaljernangasia@gmail.com'
-  const location = data?.location || 'Medan, Sumatera Utara, Indonesia'
+  const location = language === 'id' && data?.location ? data.location : t.footerLocation
 
   const contactItems = [
     {
       href: `tel:${phone.replace(/\s/g, '')}`,
       icon: 'phone',
-      label: 'Telepon / WhatsApp',
+      label: t.phoneWhatsapp,
       value: phone
     },
     {
       href: `mailto:${email}`,
       icon: 'mail',
-      label: 'Email Perdagangan',
+      label: t.tradeEmail,
       value: email
     }
   ]
@@ -174,10 +175,10 @@ function Footer({ data }) {
                   </span>
                   <span>
                     <span className="block text-[9px] uppercase tracking-[0.16em] text-stone-500">
-                      Kantor & Fasilitas
+                      {t.officeFacilities}
                     </span>
                     <span className="mt-0.5 block text-xs leading-relaxed text-stone-200">
-                      Jl. Garu VI No. 24, Harjosari I, Medan Amplas
+                      {t.officeAddress}
                     </span>
                   </span>
                 </li>
@@ -199,7 +200,7 @@ function Footer({ data }) {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="group inline-flex items-center gap-1.5 text-stone-400 transition-colors hover:text-amber-300"
             >
-              Top
+              {t.backToTop}
               <i className="h-3 w-3 transition-transform duration-300 group-hover:-translate-y-0.5" data-lucide="arrow-up"></i>
             </button>
           </div>

@@ -50,10 +50,10 @@ function LegalitasSection({ data }) {
                   </span>
                 </Reveal>
                 <Reveal as="h2" variant="mask" delay={80} className="mt-4 font-serif text-2xl font-bold leading-tight tracking-tight text-stone-900 sm:text-3xl">
-                  {data?.title || t.legalityTitle}
+                  {language === 'id' && data?.title ? data.title : t.legalityTitle}
                 </Reveal>
                 <Reveal variant="up" delay={160}>
-                  <p className="mt-2 text-xs text-stone-500">{data?.subtitle || t.legalitySubtitle}</p>
+                  <p className="mt-2 text-xs text-stone-500">{language === 'id' && data?.subtitle ? data.subtitle : t.legalitySubtitle}</p>
                 </Reveal>
               </div>
 
@@ -73,7 +73,7 @@ function LegalitasSection({ data }) {
                     {t.statusRegulated}
                   </span>
                   <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-stone-400">
-                    VERIFIED DOCUMENT • ID
+                    {t.verifiedDocument}
                   </span>
                 </div>
               </Reveal>
@@ -104,7 +104,7 @@ function LegalitasSection({ data }) {
                   )}
                   <span className="mt-4 flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-emerald-700/0 transition-colors duration-300 group-hover:text-emerald-700/80">
                     <i className="h-3 w-3" data-lucide="badge-check"></i>
-                    verified
+                    {t.verified}
                   </span>
                 </Reveal>
               ))}

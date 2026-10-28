@@ -15,7 +15,7 @@ function AboutSection({ data }) {
     }
   }, [language])
 
-  const paragraphs = (data?.paragraphs && Array.isArray(data.paragraphs) && data.paragraphs.length > 0)
+  const paragraphs = (language === 'id' && data?.paragraphs && Array.isArray(data.paragraphs) && data.paragraphs.length > 0)
     ? data.paragraphs
     : [t.aboutPara1, t.aboutPara2, t.aboutPara3, t.aboutPara4, t.aboutPara5]
 
@@ -59,7 +59,7 @@ function AboutSection({ data }) {
             </Reveal>
 
             <Reveal as="h2" variant="mask" delay={80} className="mt-5 max-w-2xl font-serif text-3xl font-bold leading-[1.1] tracking-tight text-stone-900 sm:text-4xl lg:text-[2.9rem]">
-              {data?.title || t.aboutTitle}
+              {language === 'id' && data?.title ? data.title : t.aboutTitle}
             </Reveal>
 
             <div className="mt-7 space-y-5 text-sm leading-relaxed text-stone-600 sm:text-base">
@@ -110,7 +110,7 @@ function AboutSection({ data }) {
                     <div>
                       <h3 className="font-serif text-lg font-bold leading-tight text-stone-900">{t.ourJourney}</h3>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400">
-                        MEDAN • 2016 — NOW
+                        MEDAN • 2016 — {language === 'id' ? 'SEKARANG' : 'NOW'}
                       </p>
                     </div>
                   </div>

@@ -107,7 +107,7 @@ function CommoditiesSection({ data }) {
           </div>
           <Reveal variant="fade" delay={160} className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-stone-400">
             <i className="h-4 w-4 text-brand-sienna" data-lucide="badge-check"></i>
-            Curated Natural Commodities
+            {t.curated}
           </Reveal>
         </div>
 
@@ -141,7 +141,7 @@ function CommoditiesSection({ data }) {
                         {t.mainCommodity}
                       </span>
                       <span className="absolute bottom-5 left-5 font-mono text-[10px] uppercase tracking-[0.24em] text-amber-200/70">
-                        01 / FLAGSHIP
+                        01 / {t.flagship}
                       </span>
                     </div>
 
@@ -150,7 +150,7 @@ function CommoditiesSection({ data }) {
                         <div className="flex flex-wrap items-center gap-2.5 border-b border-white/10 pb-4">
                           {commodity.hsCode && (
                             <span className="font-mono text-[11px] tracking-wider text-amber-400">
-                              HS CODE: {commodity.hsCode}
+                              {t.hsCode}: {commodity.hsCode}
                             </span>
                           )}
                           {commodity.grade && (
@@ -186,7 +186,7 @@ function CommoditiesSection({ data }) {
                           <span className="relative flex h-1.5 w-1.5 text-emerald-400">
                             <span className="pulse-ring relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                           </span>
-                          QC VERIFIED BATCH
+                          {t.qcVerifiedBatch}
                         </div>
                         <a
                           href="#kontak"
@@ -256,7 +256,7 @@ function CommoditiesSection({ data }) {
 
                       {commodity.grade && (
                         <div className="mt-4 flex items-center justify-between border-t border-stone-200 pt-3 text-[10px] uppercase tracking-[0.14em]">
-                          <span className="text-stone-400">Grade</span>
+                          <span className="text-stone-400">{t.grade}</span>
                           <span className="font-semibold text-brand-sienna">{commodity.grade}</span>
                         </div>
                       )}

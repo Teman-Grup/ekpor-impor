@@ -6,14 +6,14 @@ import Reveal from './Reveal'
 import CountUp from './CountUp'
 import Marquee from './Marquee'
 
-const tickerItems = [
-  "DRAGON'S BLOOD",
-  'KAYU GAHARU',
-  'KEMENYAN',
-  'DAMAR BATU',
-  'LIDI SAWIT',
-  'BUAH PINANG',
-  'BIGAR BAMBU'
+const tickerKeys = [
+  'commodityJernang',
+  'commodityGaharu',
+  'commodityKemenyan',
+  'commodityDamar',
+  'commodityLidi',
+  'commodityPinang',
+  'commodityBigar'
 ]
 
 function HeroSection({ data }) {
@@ -21,6 +21,7 @@ function HeroSection({ data }) {
   const backgroundRef = useParallax(0.07)
   const cardParallaxRef = useParallax(0.035)
   const tilt = useTilt(7)
+  const tickerItems = tickerKeys.map((key) => t[key])
 
   useEffect(() => {
     if (window.lucide) {
@@ -82,7 +83,7 @@ function HeroSection({ data }) {
                 <span className="relative flex h-2 w-2 text-amber-400">
                   <span className="pulse-ring relative inline-flex h-2 w-2 rounded-full bg-amber-400" />
                 </span>
-                {data?.badge || 'EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA'}
+                {t.heroBadge}
               </span>
             </Reveal>
 
@@ -202,7 +203,7 @@ function HeroSection({ data }) {
                         {t.rawMaterial}
                       </span>
                       <span className="rounded-sm bg-white/15 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-white/80 backdrop-blur-sm">
-                        LIVE QC
+                        {t.liveQc}
                       </span>
                     </div>
                   </div>
@@ -254,7 +255,7 @@ function HeroSection({ data }) {
         {/* Scroll cue */}
         <Reveal variant="fade" delay={1000} className="hidden lg:flex items-center gap-3 pt-14 text-[9px] uppercase tracking-[0.32em] text-amber-100/40">
           <span className="relative h-10 w-px overflow-hidden bg-white/15 scroll-cue-line" aria-hidden="true" />
-          SCROLL TO EXPLORE
+          {t.scrollToExplore}
         </Reveal>
         </div>
       </div>

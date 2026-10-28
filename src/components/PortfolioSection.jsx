@@ -30,10 +30,10 @@ function PortfolioSection({ data }) {
               </span>
             </Reveal>
             <Reveal as="h2" variant="mask" delay={80} className="mt-4 font-serif text-3xl font-bold leading-tight tracking-tight text-stone-900 sm:text-4xl lg:text-[2.9rem]">
-              {data?.title || t.portfolioTitle}
+              {language === 'id' && data?.title ? data.title : t.portfolioTitle}
             </Reveal>
             <Reveal variant="up" delay={180}>
-              <p className="mt-3 text-sm text-stone-500">{data?.subtitle || t.portfolioSubtitle}</p>
+              <p className="mt-3 text-sm text-stone-500">{language === 'id' && data?.subtitle ? data.subtitle : t.portfolioSubtitle}</p>
             </Reveal>
           </div>
 

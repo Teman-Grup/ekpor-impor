@@ -18,11 +18,13 @@ function PillarsSection({ data }) {
     { id: 4, number: '04', icon: 'globe', badge: 'Export Network' }
   ]
 
+  const pillarTags = [t.pillarTag1, t.pillarTag2, t.pillarTag3, t.pillarTag4]
+
   const translatedPillars = [
-    { ...rawPillars[0], title: t.pillar1Title, description: t.pillar1Desc },
-    { ...rawPillars[1], title: t.pillar2Title, description: t.pillar2Desc },
-    { ...rawPillars[2], title: t.pillar3Title, description: t.pillar3Desc },
-    { ...rawPillars[3], title: t.pillar4Title, description: t.pillar4Desc }
+    { ...rawPillars[0], title: t.pillar1Title, description: t.pillar1Desc, tag: pillarTags[0] },
+    { ...rawPillars[1], title: t.pillar2Title, description: t.pillar2Desc, tag: pillarTags[1] },
+    { ...rawPillars[2], title: t.pillar3Title, description: t.pillar3Desc, tag: pillarTags[2] },
+    { ...rawPillars[3], title: t.pillar4Title, description: t.pillar4Desc, tag: pillarTags[3] }
   ]
 
   return (
@@ -71,7 +73,7 @@ function PillarsSection({ data }) {
                   </div>
 
                   <span className="mt-5 block font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-amber-400/70">
-                    PILLAR {pillar.number}
+                    {t.pillarLabel} {pillar.number}
                   </span>
                   <h3 className="mt-1.5 font-serif text-lg font-bold leading-snug text-amber-50">
                     {pillar.title}
@@ -82,7 +84,7 @@ function PillarsSection({ data }) {
                 </div>
 
                 <div className="mt-auto flex items-center gap-2 border-t border-white/10 pt-4 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-amber-300/80">
-                  <span>{pillar.badge || 'Supply Network'}</span>
+                  <span>{pillar.tag}</span>
                   <i className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-1" data-lucide="arrow-right"></i>
                 </div>
               </article>
@@ -92,13 +94,13 @@ function PillarsSection({ data }) {
 
         <Reveal variant="fade" delay={220} className="mt-12">
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-white/10 pt-8 text-[10px] uppercase tracking-[0.24em] text-stone-400/70">
-            <span>Medan • North Sumatra</span>
+            <span>{t.pillarMetaLocation}</span>
             <span className="h-1 w-1 rounded-full bg-amber-500/60" />
-            <span>In-house Processing</span>
+            <span>{t.pillarMetaProcessing}</span>
             <span className="h-1 w-1 rounded-full bg-amber-500/60" />
-            <span>Export Ready</span>
+            <span>{t.pillarMetaExport}</span>
             <span className="h-1 w-1 rounded-full bg-amber-500/60" />
-            <span>China & India</span>
+            <span>{t.pillarMetaMarkets}</span>
           </div>
         </Reveal>
       </div>

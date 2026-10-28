@@ -3,6 +3,7 @@ const translations = {
     // Top Bar
     location: "Medan, ID (GMT+7)",
     tradeDesk: "TRADE DESK INQUIRY",
+    openForInquiry: "Terbuka untuk permintaan dagang",
     
     // Navigation
     companyName: "PT. ORIGINAL JERNANG ASIA",
@@ -30,6 +31,9 @@ const translations = {
     modernMachines: "Mesin Modern",
     qcLab: "In-House Quality Control",
     mainMarket: "Pasar Ekspor Utama",
+    heroBadge: "EST. 2016 • MEDAN, SUMATERA UTARA, INDONESIA",
+    scrollToExplore: "GULIR UNTUK MENJELAJAHI",
+    liveQc: "QC LANGSUNG",
     
     // About Section
     corporateProfile: "PROFIL KORPORASI & SEJARAH",
@@ -61,6 +65,15 @@ const translations = {
     pillar3Desc: "Memiliki laboratorium khusus serta fasilitas pengujian untuk menjaga standar kualitas sebelum dipasarkan dan diekspor. Setiap batch diuji kemurnian, kadar air, dan senyawa aktifnya.",
     pillar4Title: "Export & International Trading",
     pillar4Desc: "Pengalaman perdagangan dan pengiriman komoditas ke pasar internasional (termasuk China dan India) mulai dari perijinan, packing, karantina resmi, hingga ekspor transportasi kepelabuhan.",
+    pillarLabel: "PILAR",
+    pillarTag1: "Jaringan Pasokan",
+    pillarTag2: "Pengolahan Modern",
+    pillarTag3: "Lab & QC",
+    pillarTag4: "Jaringan Ekspor",
+    pillarMetaLocation: "Medan • Sumatera Utara",
+    pillarMetaProcessing: "Pengolahan Mandiri",
+    pillarMetaExport: "Siap Ekspor",
+    pillarMetaMarkets: "China & India",
     
     // Commodities Data Translations
     commodityJernang: "Jernang (Dragon's Blood)",
@@ -83,13 +96,20 @@ const translations = {
     formsBuahTepungBlok: "Buah, Tepung & Blok",
     officialCatalog: "KATALOG PERDAGANGAN RESMI",
     commoditiesTitle: "Komoditas Unggulan & Portofolio Alam",
+    curated: "Komoditas Alam Terkurasi",
     mainCommodity: "KOMODITAS UTAMA",
     otherCommodities: "KOMODITAS LAIN DALAM PORTOFOLIO",
+    flagship: "Unggulan",
+    qcVerifiedBatch: "BATCH TERVERIFIKASI QC",
+    grade: "Kualitas",
+    hsCode: "KODE HS",
     
     // Operational
     exportPipeline: "END-TO-END EXPORT PIPELINE",
     operationalTitle: "Proses Operasional 7 Tahap Terintegrasi",
     operationalSubtitle: "Alur kerja sistematis kami menjamin setiap batch komoditas dari hulu hingga tiba di pelabuhan internasional memenuhi standar kualitas dan legalitas.",
+    pipeline: "ALUR EKSPOR",
+    scrollHint: "Terus gulir — alur bergerak horizontal",
     step1: "Sourcing",
     step1Desc: "Pengadaan bahan baku melalui jaringan petani dan pemasok hasil alam terpercaya.",
     step1Label: "HULU / PETANI",
@@ -149,10 +169,18 @@ const translations = {
     registeredAddress: "Alamat Terdaftar:",
     addressDetail: "Jl. Garu VI No. 24, Harjosari I, Medan Amplas, Kota Medan • Kode Pos 20147",
     legalExport: "Legalitas Ekspor Sah & Valid",
+    verifiedDocument: "DOKUMEN TERVERIFIKASI • ID",
+    verified: "terverifikasi",
     
     // Footer
     footerDesc: "Perusahaan perdagangan besar, pengolahan, serta ekspor dan impor berbagai komoditas hasil alam Indonesia.",
     exportCommodities: "Komoditas Ekspor",
+    phoneWhatsapp: "Telepon / WhatsApp",
+    tradeEmail: "Email Perdagangan",
+    officeFacilities: "Kantor & Fasilitas",
+    officeAddress: "Jl. Garu VI No. 24, Harjosari I, Medan Amplas",
+    footerLocation: "Medan, Sumatera Utara, Indonesia",
+    backToTop: "Atas",
     copyright: "© 2024 PT. Original Jernang Asia. All rights reserved."
   },
   
@@ -160,6 +188,7 @@ const translations = {
     // Top Bar
     location: "Medan, ID (GMT+7)",
     tradeDesk: "TRADE DESK INQUIRY",
+    openForInquiry: "Open for trade inquiries",
     
     // Navigation
     companyName: "PT. ORIGINAL JERNANG ASIA",
@@ -187,6 +216,9 @@ const translations = {
     modernMachines: "Modern Machines",
     qcLab: "In-House Quality Control",
     mainMarket: "Main Export Markets",
+    heroBadge: "EST. 2016 • MEDAN, NORTH SUMATRA, INDONESIA",
+    scrollToExplore: "SCROLL TO EXPLORE",
+    liveQc: "LIVE QC",
     
     // About Section
     corporateProfile: "CORPORATE PROFILE & HISTORY",
@@ -218,13 +250,25 @@ const translations = {
     pillar3Desc: "Has a special laboratory and testing facilities to maintain quality standards before being marketed and exported. Each batch is tested for purity, moisture content, and active compounds.",
     pillar4Title: "Export & International Trading",
     pillar4Desc: "Experience in trading and shipping commodities to international markets (including China and India) from licensing, packing, official quarantine, to export transportation to ports.",
+    pillarLabel: "PILLAR",
+    pillarTag1: "Supply Network",
+    pillarTag2: "Modern Processing",
+    pillarTag3: "Lab & QC",
+    pillarTag4: "Export Network",
+    pillarMetaLocation: "Medan • North Sumatra",
+    pillarMetaProcessing: "In-house Processing",
+    pillarMetaExport: "Export Ready",
+    pillarMetaMarkets: "China & India",
     
     // Commodities
     officialCatalog: "OFFICIAL TRADING CATALOG",
     commoditiesTitle: "Featured Commodities & Natural Portfolio",
+    curated: "Curated Natural Commodities",
     qualityStandard: "Lab-Verified Export Quality Standards",
     mainCommodity: "MAIN COMMODITY",
     otherCommodities: "OTHER COMMODITIES IN PORTFOLIO",
+    flagship: "Flagship",
+    qcVerifiedBatch: "QC VERIFIED BATCH",
     
     // Commodities Data Translations
     commodityJernang: "Jernang (Dragon's Blood)",
@@ -266,6 +310,8 @@ const translations = {
     exportPipeline: "END-TO-END EXPORT PIPELINE",
     operationalTitle: "7-Stage Integrated Operational Process",
     operationalSubtitle: "Our systematic workflow ensures every batch of commodities from upstream to arrival at international ports meets quality and legality standards.",
+    pipeline: "PIPELINE",
+    scrollHint: "Keep scrolling — the pipeline moves horizontally",
     step1: "Sourcing",
     step1Desc: "Procurement of raw materials through networks of trusted farmers and natural product suppliers.",
     step1Label: "UPSTREAM / FARMERS",
@@ -325,6 +371,8 @@ const translations = {
     registeredAddress: "Registered Address:",
     addressDetail: "Jl. Garu VI No. 24, Harjosari I, Medan Amplas, Medan City • Postal Code 20147",
     legalExport: "Legal & Valid Export Legality",
+    verifiedDocument: "VERIFIED DOCUMENT • ID",
+    verified: "verified",
     
     // Footer
     indonesianTrade: "INDONESIAN COMMODITY TRADE",
@@ -339,6 +387,12 @@ const translations = {
     officialMail: "Official Mail:",
     timezone: "Timezone: UTC+07:00 (Western Indonesian Time)",
     exportCommodities: "EXPORT COMMODITIES",
+    phoneWhatsapp: "Phone / WhatsApp",
+    tradeEmail: "Trade Email",
+    officeFacilities: "Office & Facilities",
+    officeAddress: "Jl. Garu VI No. 24, Harjosari I, Medan Amplas",
+    footerLocation: "Medan, North Sumatra, Indonesia",
+    backToTop: "Top",
     superJernang: "Super A Jernang Resin",
     jernangExtract: "Daemonorops Draco Extract",
     damarKualing: "Kualing Damar Stone",

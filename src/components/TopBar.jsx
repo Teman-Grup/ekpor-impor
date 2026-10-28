@@ -53,7 +53,7 @@ function TopBar({ data }) {
         <div className="ml-auto flex items-center gap-3 sm:gap-5 text-[10px] uppercase tracking-[0.18em]">
           <span className="hidden items-center gap-1.5 text-stone-500 lg:inline-flex">
             <span className="h-1 w-1 rounded-full bg-emerald-500" />
-            Open for trade inquiries
+            {t.openForInquiry}
           </span>
           <div className="flex items-center gap-1 font-medium text-stone-400">
             <button
